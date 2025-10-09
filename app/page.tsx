@@ -1,103 +1,204 @@
-import Image from "next/image";
+'use client'
+
+import React, { useRef } from 'react'
+import { useEditorStore } from '@/lib/store'
+import { CardPreview } from '@/components/CardPreview'
+import { CompareSlider } from '@/components/CompareSlider'
+import { EditorPanel } from '@/components/EditorPanel'
+import { ExportControls } from '@/components/ExportControls'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const {
+    mode,
+    before,
+    after,
+    setMode,
+    updateBefore,
+    updateAfter,
+    resetBefore,
+    resetAfter,
+    duplicateBeforeToAfter,
+    duplicateAfterToBefore,
+  } = useEditorStore()
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const beforeCardRef = useRef<HTMLDivElement>(null)
+  const afterCardRef = useRef<HTMLDivElement>(null)
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-[#0B0C0F] to-[#08090A]">
+      {/* Header */}
+      <header className="border-b border-white/10 bg-black/20 backdrop-blur-sm">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-white">FaceCard Editor</h1>
+              <p className="text-sm text-gray-400">
+                Create and customize before/after comparison cards
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <ExportControls
+                beforeCardRef={beforeCardRef}
+                afterCardRef={afterCardRef}
+                currentMode={mode === 'compare-side' || mode === 'compare-slider' ? 'after' : mode}
+              />
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </header>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Editor Panel */}
+          <div className="space-y-6">
+            <Card className="p-6">
+              <Tabs defaultValue="after" className="w-full">
+                <TabsList className="grid w-full grid-cols-2 mb-6">
+                  <TabsTrigger value="before">Before</TabsTrigger>
+                  <TabsTrigger value="after">After</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="before">
+                  <EditorPanel
+                    state={before}
+                    onUpdate={updateBefore}
+                    onReset={resetBefore}
+                    onDuplicate={duplicateBeforeToAfter}
+                    label="Before"
+                  />
+                </TabsContent>
+
+                <TabsContent value="after">
+                  <EditorPanel
+                    state={after}
+                    onUpdate={updateAfter}
+                    onReset={resetAfter}
+                    onDuplicate={duplicateAfterToBefore}
+                    label="After"
+                  />
+                </TabsContent>
+              </Tabs>
+            </Card>
+          </div>
+
+          {/* Preview Panel */}
+          <div className="space-y-6">
+            <Card className="p-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold">Preview</h3>
+                  <div className="flex gap-2">
+                    <Button
+                      variant={mode === 'before' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setMode('before')}
+                    >
+                      Before
+                    </Button>
+                    <Button
+                      variant={mode === 'after' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setMode('after')}
+                    >
+                      After
+                    </Button>
+                    <Button
+                      variant={mode === 'compare-side' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setMode('compare-side')}
+                    >
+                      Side-by-Side
+                    </Button>
+                    <Button
+                      variant={mode === 'compare-slider' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setMode('compare-slider')}
+                    >
+                      Slider
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="min-h-[600px] flex items-center justify-center p-4">
+                  {mode === 'before' && (
+                    <div ref={beforeCardRef}>
+                      <CardPreview state={before} />
+                    </div>
+                  )}
+
+                  {mode === 'after' && (
+                    <div ref={afterCardRef}>
+                      <CardPreview state={after} />
+                    </div>
+                  )}
+
+                  {mode === 'compare-side' && (
+                    <div className="grid md:grid-cols-2 gap-6 w-full">
+                      <div>
+                        <div className="mb-3 text-center">
+                          <span className="inline-block px-3 py-1 bg-gray-800 text-white text-sm font-semibold rounded-full">
+                            Before
+                          </span>
+                        </div>
+                        <div ref={beforeCardRef}>
+                          <CardPreview state={before} size="thumbnail" />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="mb-3 text-center">
+                          <span className="inline-block px-3 py-1 bg-purple-600 text-white text-sm font-semibold rounded-full">
+                            After
+                          </span>
+                        </div>
+                        <div ref={afterCardRef}>
+                          <CardPreview state={after} size="thumbnail" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {mode === 'compare-slider' && (
+                    <div className="w-full">
+                      <div className="hidden">
+                        <div ref={beforeCardRef}>
+                          <CardPreview state={before} />
+                        </div>
+                        <div ref={afterCardRef}>
+                          <CardPreview state={after} />
+                        </div>
+                      </div>
+                      <CompareSlider beforeState={before} afterState={after} />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </Card>
+
+            {/* Quick Tips */}
+            <Card className="p-6">
+              <h4 className="font-semibold mb-3">Quick Tips</h4>
+              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                <li>• Edit traits by adjusting ratings, labels, and emojis</li>
+                <li>• Upload custom avatars with the crop tool</li>
+                <li>• Use "Duplicate" to copy settings between Before/After</li>
+                <li>• Export single cards or side-by-side comparisons</li>
+                <li>• All changes are automatically saved to your browser</li>
+              </ul>
+            </Card>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="border-t border-white/10 bg-black/20 backdrop-blur-sm mt-16">
+        <div className="container mx-auto px-4 py-6 text-center text-sm text-gray-400">
+          <p>FaceCard Editor • Built with Next.js, React, and Tailwind CSS</p>
+        </div>
       </footer>
     </div>
-  );
+  )
 }
