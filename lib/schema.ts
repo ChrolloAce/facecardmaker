@@ -21,10 +21,9 @@ export const CardStateSchema = z.object({
   score: z.number().min(0).max(10),
   percentileText: z.string(),
   avatarUrl: z.string().optional(),
-  brandText: z.string().default('facecard.ai'),
+  brandText: z.string().default('The Facecard App'),
   hintText: z.string().default('Swipe for detailed analysis →'),
   traits: z.array(TraitSchema),
-  ctaLabel: z.string().default('Share Result'),
 })
 
 export type CardState = z.infer<typeof CardStateSchema>

@@ -40,6 +40,15 @@ export default function Home() {
               </p>
             </div>
             <div className="flex items-center gap-3">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  resetBefore()
+                  resetAfter()
+                }}
+              >
+                Reset All
+              </Button>
               <ExportControls
                 beforeCardRef={beforeCardRef}
                 afterCardRef={afterCardRef}

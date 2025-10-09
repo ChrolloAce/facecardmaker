@@ -8,9 +8,8 @@ export const defaultBeforeState: CardState = {
   score: 7.2,
   percentileText: 'Top 68% of men',
   avatarUrl: undefined,
-  brandText: 'facecard.ai',
+  brandText: 'The Facecard App',
   hintText: 'Swipe for detailed analysis →',
-  ctaLabel: 'Share Result',
   traits: [
     {
       id: '1',
@@ -58,9 +57,8 @@ export const defaultAfterState: CardState = {
   score: 8.9,
   percentileText: 'Top 92% of men',
   avatarUrl: undefined,
-  brandText: 'facecard.ai',
+  brandText: 'The Facecard App',
   hintText: 'Swipe for detailed analysis →',
-  ctaLabel: 'Share Result',
   traits: [
     {
       id: '1',

@@ -119,29 +119,11 @@ export function EditorPanel({
         />
 
         <div>
-          <Label>Brand Text</Label>
-          <Input
-            value={state.brandText}
-            onChange={(e) => onUpdate({ brandText: e.target.value })}
-            placeholder="facecard.ai"
-          />
-        </div>
-
-        <div>
           <Label>Hint Text</Label>
           <Input
             value={state.hintText}
             onChange={(e) => onUpdate({ hintText: e.target.value })}
             placeholder="Swipe for detailed analysis →"
-          />
-        </div>
-
-        <div>
-          <Label>CTA Button Label</Label>
-          <Input
-            value={state.ctaLabel}
-            onChange={(e) => onUpdate({ ctaLabel: e.target.value })}
-            placeholder="Share Result"
           />
         </div>
       </div>
