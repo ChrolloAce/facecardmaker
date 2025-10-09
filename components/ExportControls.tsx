@@ -2,79 +2,63 @@
 
 import React from 'react'
 import { Button } from '@/components/ui/button'
-import { Download, Image as ImageIcon, FileImage } from 'lucide-react'
-import { exportCardAsPNG, exportCardAsSVG, export2UpComparison } from '@/lib/export'
+import { Download } from 'lucide-react'
+import { exportCardAsPNG, export2UpComparison } from '@/lib/export'
 
 interface ExportControlsProps {
   beforeCardRef: React.RefObject<HTMLDivElement | null>
   afterCardRef: React.RefObject<HTMLDivElement | null>
-  currentMode: 'before' | 'after' | 'compare-side' | 'compare-slider'
+  currentMode: 'before' | 'after' | 'compare-side'
 }
 
 /**
- * ExportControls - Buttons to export cards in various formats
+ * ExportControls - Smart export button that adapts to current view mode
  */
 export function ExportControls({
   beforeCardRef,
   afterCardRef,
   currentMode,
 }: ExportControlsProps) {
-  const handleExportPNG = async () => {
-    const ref = currentMode === 'before' ? beforeCardRef : afterCardRef
-    if (!ref.current) return
-
+  const handleExport = async () => {
     try {
-      await exportCardAsPNG(ref.current, `facecard-${currentMode}.png`)
+      if (currentMode === 'compare-side') {
+        // Export side-by-side comparison
+        if (!beforeCardRef.current || !afterCardRef.current) return
+        await export2UpComparison(
+          beforeCardRef.current,
+          afterCardRef.current,
+          'facecard-comparison.png'
+        )
+      } else {
+        // Export single card (before or after)
+        const ref = currentMode === 'before' ? beforeCardRef : afterCardRef
+        if (!ref.current) return
+        await exportCardAsPNG(ref.current, `facecard-${currentMode}.png`)
+      }
     } catch (error) {
       console.error('Export failed:', error)
-      alert('Failed to export image. Please try again.')
+      alert('Failed to export. Please try again.')
     }
   }
 
-  const handleExportSVG = async () => {
-    const ref = currentMode === 'before' ? beforeCardRef : afterCardRef
-    if (!ref.current) return
-
-    try {
-      await exportCardAsSVG(ref.current, `facecard-${currentMode}.svg`)
-    } catch (error) {
-      console.error('Export failed:', error)
-      alert('Failed to export image. Please try again.')
-    }
-  }
-
-  const handleExport2Up = async () => {
-    if (!beforeCardRef.current || !afterCardRef.current) return
-
-    try {
-      await export2UpComparison(
-        beforeCardRef.current,
-        afterCardRef.current,
-        'facecard-comparison.png'
-      )
-    } catch (error) {
-      console.error('Export failed:', error)
-      alert('Failed to export comparison. Please try again.')
+  // Dynamic button label based on mode
+  const getButtonLabel = () => {
+    switch (currentMode) {
+      case 'before':
+        return 'Export Before'
+      case 'after':
+        return 'Export After'
+      case 'compare-side':
+        return 'Export Comparison'
+      default:
+        return 'Export'
     }
   }
 
   return (
-    <div className="flex flex-wrap gap-2">
-      <Button onClick={handleExportPNG} variant="default" size="sm">
-        <Download className="w-4 h-4 sm:mr-2" />
-        <span className="hidden sm:inline">Export PNG</span>
-      </Button>
-      
-      <Button onClick={handleExportSVG} variant="outline" size="sm">
-        <FileImage className="w-4 h-4 sm:mr-2" />
-        <span className="hidden sm:inline">SVG</span>
-      </Button>
-      
-      <Button onClick={handleExport2Up} variant="outline" size="sm" className="whitespace-nowrap">
-        <ImageIcon className="w-4 h-4 sm:mr-2" />
-        <span className="hidden sm:inline">2-Up</span>
-      </Button>
-    </div>
+    <Button onClick={handleExport} variant="default" size="sm">
+      <Download className="w-4 h-4 sm:mr-2" />
+      <span className="hidden sm:inline">{getButtonLabel()}</span>
+    </Button>
   )
 }
-

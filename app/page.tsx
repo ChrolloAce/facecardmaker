@@ -54,7 +54,7 @@ export default function Home() {
               <ExportControls
                 beforeCardRef={beforeCardRef}
                 afterCardRef={afterCardRef}
-                currentMode={mode === 'compare-side' || mode === 'compare-slider' ? 'after' : mode}
+                currentMode={mode}
               />
             </div>
           </div>
@@ -127,14 +127,6 @@ export default function Home() {
                     >
                       Side-by-Side
                     </Button>
-                    <Button
-                      variant={mode === 'compare-slider' ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => setMode('compare-slider')}
-                      className="flex-1 sm:flex-none"
-                    >
-                      Slider
-                    </Button>
                   </div>
                 </div>
 
@@ -152,41 +144,27 @@ export default function Home() {
                   )}
 
                   {mode === 'compare-side' && (
-                    <div className="grid md:grid-cols-2 gap-6 w-full">
-                      <div>
+                    <div className="flex flex-col lg:flex-row gap-6 w-full items-start justify-center">
+                      <div className="flex-1 max-w-[550px]">
                         <div className="mb-3 text-center">
                           <span className="inline-block px-3 py-1 bg-gray-800 text-white text-sm font-semibold rounded-full">
                             Before
                           </span>
                         </div>
                         <div ref={beforeCardRef}>
-                          <CardPreview state={before} size="thumbnail" />
+                          <CardPreview state={before} />
                         </div>
                       </div>
-                      <div>
+                      <div className="flex-1 max-w-[550px]">
                         <div className="mb-3 text-center">
                           <span className="inline-block px-3 py-1 bg-purple-600 text-white text-sm font-semibold rounded-full">
                             After
                           </span>
                         </div>
                         <div ref={afterCardRef}>
-                          <CardPreview state={after} size="thumbnail" />
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {mode === 'compare-slider' && (
-                    <div className="w-full">
-                      <div className="hidden">
-                        <div ref={beforeCardRef}>
-                          <CardPreview state={before} />
-                        </div>
-                        <div ref={afterCardRef}>
                           <CardPreview state={after} />
                         </div>
                       </div>
-                      <CompareSlider beforeState={before} afterState={after} />
                     </div>
                   )}
                 </div>
