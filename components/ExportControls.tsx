@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Download, Image as ImageIcon, FileImage } from 'lucide-react'
 import { exportCardAsPNG, exportCardAsSVG, export2UpComparison } from '@/lib/export'

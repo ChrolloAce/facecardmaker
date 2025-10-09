@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 import { CardState } from '@/lib/schema'
 import { formatScore, getInitials } from '@/lib/format'
 import { TraitRow } from './TraitRow'
@@ -52,6 +53,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
               {/* Avatar */}
               <div className="flex-shrink-0">
                 {state.avatarUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={state.avatarUrl}
                     alt="Avatar"

@@ -30,7 +30,7 @@ export function AvatarPicker({ currentUrl, onUrlChange }: AvatarPickerProps) {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<CropArea | null>(null)
   const [showCropDialog, setShowCropDialog] = useState(false)
 
-  const onCropComplete = useCallback((_croppedArea: any, croppedAreaPixels: CropArea) => {
+  const onCropComplete = useCallback((_croppedArea: unknown, croppedAreaPixels: CropArea) => {
     setCroppedAreaPixels(croppedAreaPixels)
   }, [])
 
@@ -69,6 +69,7 @@ export function AvatarPicker({ currentUrl, onUrlChange }: AvatarPickerProps) {
       
       {currentUrl ? (
         <div className="flex items-center gap-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={currentUrl}
             alt="Avatar preview"

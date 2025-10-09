@@ -157,7 +157,7 @@ export function EditorPanel({
         </div>
 
         <div className="space-y-3">
-          {state.traits.map((trait, index) => (
+          {state.traits.map((trait) => (
             <div
               key={trait.id}
               className="p-4 border rounded-lg space-y-3 bg-gray-50 dark:bg-gray-800"

@@ -184,7 +184,7 @@ export default function Home() {
               <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                 <li>• Edit traits by adjusting ratings, labels, and emojis</li>
                 <li>• Upload custom avatars with the crop tool</li>
-                <li>• Use "Duplicate" to copy settings between Before/After</li>
+                <li>• Use &quot;Duplicate&quot; to copy settings between Before/After</li>
                 <li>• Export single cards or side-by-side comparisons</li>
                 <li>• All changes are automatically saved to your browser</li>
               </ul>
