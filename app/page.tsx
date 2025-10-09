@@ -3,7 +3,6 @@
 import React, { useRef } from 'react'
 import { useEditorStore } from '@/lib/store'
 import { CardPreview } from '@/components/CardPreview'
-import { CompareSlider } from '@/components/CompareSlider'
 import { EditorPanel } from '@/components/EditorPanel'
 import { ExportControls } from '@/components/ExportControls'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -51,11 +50,6 @@ export default function Home() {
               >
                 Reset All
               </Button>
-              <ExportControls
-                beforeCardRef={beforeCardRef}
-                afterCardRef={afterCardRef}
-                currentMode={mode}
-              />
             </div>
           </div>
         </div>
@@ -119,14 +113,6 @@ export default function Home() {
                     >
                       After
                     </Button>
-                    <Button
-                      variant={mode === 'compare-side' ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => setMode('compare-side')}
-                      className="flex-1 sm:flex-none whitespace-nowrap"
-                    >
-                      Side-by-Side
-                    </Button>
                   </div>
                 </div>
 
@@ -140,31 +126,6 @@ export default function Home() {
                   {mode === 'after' && (
                     <div ref={afterCardRef}>
                       <CardPreview state={after} />
-                    </div>
-                  )}
-
-                  {mode === 'compare-side' && (
-                    <div className="flex flex-col lg:flex-row gap-6 w-full items-start justify-center">
-                      <div className="flex-1 max-w-[550px]">
-                        <div className="mb-3 text-center">
-                          <span className="inline-block px-3 py-1 bg-gray-800 text-white text-sm font-semibold rounded-full">
-                            Before
-                          </span>
-                        </div>
-                        <div ref={beforeCardRef}>
-                          <CardPreview state={before} />
-                        </div>
-                      </div>
-                      <div className="flex-1 max-w-[550px]">
-                        <div className="mb-3 text-center">
-                          <span className="inline-block px-3 py-1 bg-purple-600 text-white text-sm font-semibold rounded-full">
-                            After
-                          </span>
-                        </div>
-                        <div ref={afterCardRef}>
-                          <CardPreview state={after} />
-                        </div>
-                      </div>
                     </div>
                   )}
                 </div>
@@ -192,6 +153,15 @@ export default function Home() {
           <p>FaceCard Editor • Built with Next.js, React, and Tailwind CSS</p>
         </div>
       </footer>
+
+      {/* Floating Export Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <ExportControls
+          beforeCardRef={beforeCardRef}
+          afterCardRef={afterCardRef}
+          currentMode={mode}
+        />
+      </div>
     </div>
   )
 }

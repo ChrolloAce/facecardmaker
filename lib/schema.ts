@@ -32,7 +32,7 @@ export type CardState = z.infer<typeof CardStateSchema>
  * Schema for the complete editor store state
  */
 export const EditorStoreSchema = z.object({
-  mode: z.enum(['before', 'after', 'compare-side']).default('after'),
+  mode: z.enum(['before', 'after']).default('after'),
   before: CardStateSchema,
   after: CardStateSchema,
 })
@@ -42,5 +42,5 @@ export type EditorStoreState = z.infer<typeof EditorStoreSchema>
 /**
  * Type for the active view mode
  */
-export type ViewMode = 'before' | 'after' | 'compare-side'
+export type ViewMode = 'before' | 'after'
 

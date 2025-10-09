@@ -3,12 +3,12 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Download } from 'lucide-react'
-import { exportCardAsPNG, export2UpComparison } from '@/lib/export'
+import { exportCardAsPNG } from '@/lib/export'
 
 interface ExportControlsProps {
   beforeCardRef: React.RefObject<HTMLDivElement | null>
   afterCardRef: React.RefObject<HTMLDivElement | null>
-  currentMode: 'before' | 'after' | 'compare-side'
+  currentMode: 'before' | 'after'
 }
 
 /**
@@ -21,44 +21,28 @@ export function ExportControls({
 }: ExportControlsProps) {
   const handleExport = async () => {
     try {
-      if (currentMode === 'compare-side') {
-        // Export side-by-side comparison
-        if (!beforeCardRef.current || !afterCardRef.current) return
-        await export2UpComparison(
-          beforeCardRef.current,
-          afterCardRef.current,
-          'facecard-comparison.png'
-        )
-      } else {
-        // Export single card (before or after)
-        const ref = currentMode === 'before' ? beforeCardRef : afterCardRef
-        if (!ref.current) return
-        await exportCardAsPNG(ref.current, `facecard-${currentMode}.png`)
-      }
+      // Export single card (before or after)
+      const ref = currentMode === 'before' ? beforeCardRef : afterCardRef
+      if (!ref.current) return
+      await exportCardAsPNG(ref.current, `facecard-${currentMode}.png`)
     } catch (error) {
       console.error('Export failed:', error)
       alert('Failed to export. Please try again.')
     }
   }
 
-  // Dynamic button label based on mode
-  const getButtonLabel = () => {
-    switch (currentMode) {
-      case 'before':
-        return 'Export Before'
-      case 'after':
-        return 'Export After'
-      case 'compare-side':
-        return 'Export Comparison'
-      default:
-        return 'Export'
-    }
-  }
-
   return (
-    <Button onClick={handleExport} variant="default" size="sm">
-      <Download className="w-4 h-4 sm:mr-2" />
-      <span className="hidden sm:inline">{getButtonLabel()}</span>
+    <Button 
+      onClick={handleExport} 
+      size="lg"
+      className="rounded-full shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-110"
+      style={{
+        background: 'linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%)',
+        boxShadow: '0 8px 32px rgba(124, 58, 237, 0.4)',
+      }}
+    >
+      <Download className="w-5 h-5 mr-2" />
+      <span className="font-semibold">Download</span>
     </Button>
   )
 }
