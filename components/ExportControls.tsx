@@ -60,19 +60,19 @@ export function ExportControls({
 
   return (
     <div className="flex flex-wrap gap-2">
-      <Button onClick={handleExportPNG} variant="default">
-        <Download className="w-4 h-4 mr-2" />
-        Export PNG
+      <Button onClick={handleExportPNG} variant="default" size="sm">
+        <Download className="w-4 h-4 sm:mr-2" />
+        <span className="hidden sm:inline">Export PNG</span>
       </Button>
       
-      <Button onClick={handleExportSVG} variant="outline">
-        <FileImage className="w-4 h-4 mr-2" />
-        Export SVG
+      <Button onClick={handleExportSVG} variant="outline" size="sm">
+        <FileImage className="w-4 h-4 sm:mr-2" />
+        <span className="hidden sm:inline">SVG</span>
       </Button>
       
-      <Button onClick={handleExport2Up} variant="outline">
-        <ImageIcon className="w-4 h-4 mr-2" />
-        Export 2-Up Comparison
+      <Button onClick={handleExport2Up} variant="outline" size="sm" className="whitespace-nowrap">
+        <ImageIcon className="w-4 h-4 sm:mr-2" />
+        <span className="hidden sm:inline">2-Up</span>
       </Button>
     </div>
   )

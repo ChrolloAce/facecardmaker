@@ -29,22 +29,22 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
       >
         {/* Card Container */}
         <div
-          className="relative w-full rounded-[28px] border border-[#2A2B31] shadow-2xl overflow-hidden"
+          className="relative w-full rounded-[20px] sm:rounded-[28px] border border-[#2A2B31] shadow-2xl overflow-hidden"
           style={{
             backgroundColor: '#1B1C1F',
             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 60px rgba(255, 255, 255, 0.02)',
           }}
         >
           {/* Inner Content */}
-          <div className="px-6 pt-6 pb-[18px]">
+          <div className="px-4 sm:px-6 pt-4 sm:pt-6 pb-4 sm:pb-[18px]">
             {/* Header Row */}
-            <div className="flex items-start justify-between gap-4 mb-4">
+            <div className="flex items-start justify-between gap-3 sm:gap-4 mb-3 sm:mb-4">
               {/* Title Block */}
               <div className="flex-1 min-w-0">
-                <h1 className="text-[28px] font-bold leading-tight text-white tracking-[-0.3px] mb-0.5">
+                <h1 className="text-[24px] sm:text-[28px] font-bold leading-tight text-white tracking-[-0.3px] mb-0.5">
                   {state.headlinePrefix} {formatScore(state.score)}
                 </h1>
-                <p className="text-[14px] font-medium text-[#A8ABB3]">
+                <p className="text-[13px] sm:text-[14px] font-medium text-[#A8ABB3]">
                   {state.percentileText}
                 </p>
               </div>
@@ -56,10 +56,10 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                   <img
                     src={state.avatarUrl}
                     alt="Avatar"
-                    className="w-16 h-16 rounded-full ring-2 ring-white/20 shadow-md object-cover"
+                    className="w-12 h-12 sm:w-16 sm:h-16 rounded-full ring-2 ring-white/20 shadow-md object-cover"
                   />
                 ) : (
-                  <div className="w-16 h-16 rounded-full ring-2 ring-white/20 shadow-md flex items-center justify-center text-white text-lg font-bold bg-gradient-to-br from-purple-600 to-blue-600">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full ring-2 ring-white/20 shadow-md flex items-center justify-center text-white text-base sm:text-lg font-bold bg-gradient-to-br from-purple-600 to-blue-600">
                     {getInitials(state.percentileText)}
                   </div>
                 )}
@@ -67,10 +67,10 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
             </div>
             
             {/* Divider */}
-            <div className="h-px bg-[#2A2B31] my-4" />
+            <div className="h-px bg-[#2A2B31] my-3 sm:my-4" />
             
             {/* Section Title */}
-            <h2 className="text-[18px] font-bold text-[#E7E9EE] mb-2 mt-1">
+            <h2 className="text-[16px] sm:text-[18px] font-bold text-[#E7E9EE] mb-2 mt-1">
               Your Traits
             </h2>
             
@@ -86,13 +86,13 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
             </div>
             
             {/* Footer Hint */}
-            <div className="mt-6 mb-3 text-center">
-              <p className="text-[13px] text-[#9DA3AE]">{state.hintText}</p>
+            <div className="mt-4 sm:mt-6 mb-2 sm:mb-3 text-center">
+              <p className="text-[12px] sm:text-[13px] text-[#9DA3AE]">{state.hintText}</p>
             </div>
             
             {/* Brand Label */}
             <div className="text-center">
-              <p className="text-[14px] text-[#8A8F99]">{state.brandText}</p>
+              <p className="text-[13px] sm:text-[14px] text-[#8A8F99]">{state.brandText}</p>
             </div>
           </div>
         </div>

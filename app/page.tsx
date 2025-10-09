@@ -31,21 +31,23 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-[#0B0C0F] to-[#08090A]">
       {/* Header */}
       <header className="border-b border-white/10 bg-black/20 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-white">FaceCard Editor</h1>
-              <p className="text-sm text-gray-400">
+        <div className="container mx-auto px-4 py-3 md:py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex-1 min-w-0">
+              <h1 className="text-xl md:text-2xl font-bold text-white truncate">FaceCard Editor</h1>
+              <p className="text-xs md:text-sm text-gray-400 hidden sm:block">
                 Create and customize before/after comparison cards
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 flex-shrink-0 overflow-x-auto">
               <Button
                 variant="outline"
+                size="sm"
                 onClick={() => {
                   resetBefore()
                   resetAfter()
                 }}
+                className="whitespace-nowrap"
               >
                 Reset All
               </Button>
@@ -60,10 +62,10 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8 max-w-[1400px]">
-        <div className="grid lg:grid-cols-2 gap-8">
+      <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6 md:py-8 max-w-[1400px]">
+        <div className="grid lg:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
           {/* Editor Panel */}
-          <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6">
             <Card className="p-6">
               <Tabs defaultValue="after" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 mb-6">
@@ -95,16 +97,17 @@ export default function Home() {
           </div>
 
           {/* Preview Panel */}
-          <div className="space-y-6 sticky top-8 self-start">
+          <div className="space-y-4 md:space-y-6 lg:sticky lg:top-8 lg:self-start">
             <Card className="p-6">
               <div className="space-y-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <h3 className="text-lg font-semibold">Preview</h3>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap sm:flex-nowrap">
                     <Button
                       variant={mode === 'before' ? 'default' : 'outline'}
                       size="sm"
                       onClick={() => setMode('before')}
+                      className="flex-1 sm:flex-none"
                     >
                       Before
                     </Button>
@@ -112,6 +115,7 @@ export default function Home() {
                       variant={mode === 'after' ? 'default' : 'outline'}
                       size="sm"
                       onClick={() => setMode('after')}
+                      className="flex-1 sm:flex-none"
                     >
                       After
                     </Button>
@@ -119,6 +123,7 @@ export default function Home() {
                       variant={mode === 'compare-side' ? 'default' : 'outline'}
                       size="sm"
                       onClick={() => setMode('compare-side')}
+                      className="flex-1 sm:flex-none whitespace-nowrap"
                     >
                       Side-by-Side
                     </Button>
@@ -126,6 +131,7 @@ export default function Home() {
                       variant={mode === 'compare-slider' ? 'default' : 'outline'}
                       size="sm"
                       onClick={() => setMode('compare-slider')}
+                      className="flex-1 sm:flex-none"
                     >
                       Slider
                     </Button>

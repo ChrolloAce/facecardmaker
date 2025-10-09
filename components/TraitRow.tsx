@@ -14,29 +14,29 @@ interface TraitRowProps {
 export function TraitRow({ trait, showDivider = true }: TraitRowProps) {
   return (
     <div
-      className={`flex items-center gap-3 py-[10px] ${
+      className={`flex items-center gap-2 sm:gap-3 py-2 sm:py-[10px] ${
         showDivider ? 'border-b border-[#2A2B31]' : ''
       }`}
     >
       {/* Icon/Emoji */}
-      <div className="flex-shrink-0 text-[22px] leading-none" role="img">
+      <div className="flex-shrink-0 text-[18px] sm:text-[22px] leading-none" role="img">
         {trait.icon}
       </div>
       
       {/* Label and Sublabel */}
       <div className="flex-1 min-w-0">
-        <div className="text-[16px] font-semibold leading-tight text-[#F3F4F6]">
+        <div className="text-[14px] sm:text-[16px] font-semibold leading-tight text-[#F3F4F6]">
           {trait.label}
         </div>
         {trait.sublabel && (
-          <div className="text-[13px] font-medium leading-tight text-[#9DA3AE] mt-0.5">
+          <div className="text-[11px] sm:text-[13px] font-medium leading-tight text-[#9DA3AE] mt-0.5">
             {trait.sublabel}
           </div>
         )}
       </div>
       
       {/* Rating */}
-      <div className="flex-shrink-0 text-[22px] font-extrabold text-white min-w-[48px] text-right tabular-nums">
+      <div className="flex-shrink-0 text-[18px] sm:text-[22px] font-extrabold text-white min-w-[40px] sm:min-w-[48px] text-right tabular-nums">
         {formatScore(trait.rating)}
       </div>
     </div>
