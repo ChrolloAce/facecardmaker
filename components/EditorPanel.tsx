@@ -14,7 +14,6 @@ interface EditorPanelProps {
   state: CardState
   onUpdate: (updates: Partial<CardState>) => void
   onReset: () => void
-  onDuplicate?: () => void
   label: string
 }
 
@@ -25,7 +24,6 @@ export function EditorPanel({
   state,
   onUpdate,
   onReset,
-  onDuplicate,
   label,
 }: EditorPanelProps) {
   const updateTrait = (id: string, updates: Partial<Trait>) => {
@@ -56,16 +54,6 @@ export function EditorPanel({
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold">{label} Editor</h3>
-        <div className="flex gap-2">
-          {onDuplicate && (
-            <Button variant="outline" size="sm" onClick={onDuplicate}>
-              Duplicate
-            </Button>
-          )}
-          <Button variant="outline" size="sm" onClick={onReset}>
-            Reset
-          </Button>
-        </div>
       </div>
 
       {/* Basic Info */}

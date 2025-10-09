@@ -6,25 +6,17 @@ import { Download } from 'lucide-react'
 import { exportCardAsPNG } from '@/lib/export'
 
 interface ExportControlsProps {
-  beforeCardRef: React.RefObject<HTMLDivElement | null>
-  afterCardRef: React.RefObject<HTMLDivElement | null>
-  currentMode: 'before' | 'after'
+  cardRef: React.RefObject<HTMLDivElement | null>
 }
 
 /**
- * ExportControls - Smart export button that adapts to current view mode
+ * ExportControls - Download button for exporting the card
  */
-export function ExportControls({
-  beforeCardRef,
-  afterCardRef,
-  currentMode,
-}: ExportControlsProps) {
+export function ExportControls({ cardRef }: ExportControlsProps) {
   const handleExport = async () => {
     try {
-      // Export single card (before or after)
-      const ref = currentMode === 'before' ? beforeCardRef : afterCardRef
-      if (!ref.current) return
-      await exportCardAsPNG(ref.current, `facecard-${currentMode}.png`)
+      if (!cardRef.current) return
+      await exportCardAsPNG(cardRef.current, 'facecard.png')
     } catch (error) {
       console.error('Export failed:', error)
       alert('Failed to export. Please try again.')

@@ -11,20 +11,12 @@ import { Card } from '@/components/ui/card'
 
 export default function Home() {
   const {
-    mode,
-    before,
-    after,
-    setMode,
-    updateBefore,
-    updateAfter,
-    resetBefore,
-    resetAfter,
-    duplicateBeforeToAfter,
-    duplicateAfterToBefore,
+    card,
+    updateCard,
+    resetCard,
   } = useEditorStore()
 
-  const beforeCardRef = useRef<HTMLDivElement>(null)
-  const afterCardRef = useRef<HTMLDivElement>(null)
+  const cardRef = useRef<HTMLDivElement>(null)
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0B0C0F] to-[#08090A]">
@@ -35,20 +27,17 @@ export default function Home() {
             <div className="flex-1 min-w-0">
               <h1 className="text-xl md:text-2xl font-bold text-white truncate">FaceCard Editor</h1>
               <p className="text-xs md:text-sm text-gray-400 hidden sm:block">
-                Create and customize before/after comparison cards
+                Create and customize your card
               </p>
             </div>
             <div className="flex items-center gap-2 flex-shrink-0 overflow-x-auto">
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => {
-                  resetBefore()
-                  resetAfter()
-                }}
+                onClick={resetCard}
                 className="whitespace-nowrap"
               >
-                Reset All
+                Reset
               </Button>
             </div>
           </div>
@@ -61,32 +50,12 @@ export default function Home() {
           {/* Editor Panel */}
           <div className="space-y-4 md:space-y-6 order-2 lg:order-1">
             <Card className="p-6">
-              <Tabs defaultValue="after" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 mb-6">
-                  <TabsTrigger value="before">Before</TabsTrigger>
-                  <TabsTrigger value="after">After</TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="before">
-                  <EditorPanel
-                    state={before}
-                    onUpdate={updateBefore}
-                    onReset={resetBefore}
-                    onDuplicate={duplicateBeforeToAfter}
-                    label="Before"
-                  />
-                </TabsContent>
-
-                <TabsContent value="after">
-                  <EditorPanel
-                    state={after}
-                    onUpdate={updateAfter}
-                    onReset={resetAfter}
-                    onDuplicate={duplicateAfterToBefore}
-                    label="After"
-                  />
-                </TabsContent>
-              </Tabs>
+              <EditorPanel
+                state={card}
+                onUpdate={updateCard}
+                onReset={resetCard}
+                label="Card"
+              />
             </Card>
           </div>
 
@@ -96,38 +65,12 @@ export default function Home() {
               <div className="space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <h3 className="text-lg font-semibold">Preview</h3>
-                  <div className="flex gap-2 flex-wrap sm:flex-nowrap">
-                    <Button
-                      variant={mode === 'before' ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => setMode('before')}
-                      className="flex-1 sm:flex-none"
-                    >
-                      Before
-                    </Button>
-                    <Button
-                      variant={mode === 'after' ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => setMode('after')}
-                      className="flex-1 sm:flex-none"
-                    >
-                      After
-                    </Button>
-                  </div>
                 </div>
 
                 <div className="min-h-[600px] flex items-center justify-center p-4">
-                  {mode === 'before' && (
-                    <div ref={beforeCardRef}>
-                      <CardPreview state={before} />
-                    </div>
-                  )}
-
-                  {mode === 'after' && (
-                    <div ref={afterCardRef}>
-                      <CardPreview state={after} />
-                    </div>
-                  )}
+                  <div ref={cardRef}>
+                    <CardPreview state={card} />
+                  </div>
                 </div>
               </div>
             </Card>
@@ -138,8 +81,7 @@ export default function Home() {
               <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                 <li>• Edit traits by adjusting ratings, labels, and emojis</li>
                 <li>• Upload custom avatars with the crop tool</li>
-                <li>• Use &quot;Duplicate&quot; to copy settings between Before/After</li>
-                <li>• Export single cards or side-by-side comparisons</li>
+                <li>• Click the download button to export your card</li>
                 <li>• All changes are automatically saved to your browser</li>
               </ul>
             </Card>
@@ -156,11 +98,7 @@ export default function Home() {
 
       {/* Floating Export Button */}
       <div className="fixed bottom-6 right-6 z-50">
-        <ExportControls
-          beforeCardRef={beforeCardRef}
-          afterCardRef={afterCardRef}
-          currentMode={mode}
-        />
+        <ExportControls cardRef={cardRef} />
       </div>
     </div>
   )
