@@ -6,8 +6,8 @@ import { Download, Image as ImageIcon, FileImage } from 'lucide-react'
 import { exportCardAsPNG, exportCardAsSVG, export2UpComparison } from '@/lib/export'
 
 interface ExportControlsProps {
-  beforeCardRef: React.RefObject<HTMLDivElement>
-  afterCardRef: React.RefObject<HTMLDivElement>
+  beforeCardRef: React.RefObject<HTMLDivElement | null>
+  afterCardRef: React.RefObject<HTMLDivElement | null>
   currentMode: 'before' | 'after' | 'compare-side' | 'compare-slider'
 }
 

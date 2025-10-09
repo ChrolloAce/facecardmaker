@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image'
 import { CardState } from '@/lib/schema'
 import { formatScore, getInitials } from '@/lib/format'
 import { TraitRow } from './TraitRow'
