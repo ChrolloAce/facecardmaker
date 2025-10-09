@@ -85,9 +85,8 @@ export async function export2UpComparison(
     canvas.width = cardWidth * 2 + gutter
     canvas.height = cardHeight + captionHeight
     
-    // Fill background
-    ctx.fillStyle = '#0B0C0F'
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    // No background fill - transparent background
+    // Cards already have their own backgrounds from the elements
     
     // Draw cards
     ctx.drawImage(beforeImg, 0, 0)

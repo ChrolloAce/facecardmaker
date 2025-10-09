@@ -51,7 +51,7 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 max-w-[1400px]">
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Editor Panel */}
           <div className="space-y-6">
@@ -86,7 +86,7 @@ export default function Home() {
           </div>
 
           {/* Preview Panel */}
-          <div className="space-y-6">
+          <div className="space-y-6 sticky top-8 self-start">
             <Card className="p-6">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
