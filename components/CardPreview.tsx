@@ -22,7 +22,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
         ref={ref}
         className={`relative mx-auto ${className}`}
         style={{
-          maxWidth: size === 'phone' ? '500px' : '300px',
+          maxWidth: size === 'phone' ? '550px' : '330px',
           transform: size === 'thumbnail' ? `scale(${scale})` : undefined,
           transformOrigin: 'top center',
         }}

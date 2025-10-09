@@ -65,7 +65,7 @@ export default function Home() {
       <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6 md:py-8 max-w-[1400px]">
         <div className="grid lg:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
           {/* Editor Panel */}
-          <div className="space-y-4 md:space-y-6">
+          <div className="space-y-4 md:space-y-6 order-2 lg:order-1">
             <Card className="p-6">
               <Tabs defaultValue="after" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 mb-6">
@@ -97,7 +97,7 @@ export default function Home() {
           </div>
 
           {/* Preview Panel */}
-          <div className="space-y-4 md:space-y-6 lg:sticky lg:top-8 lg:self-start">
+          <div className="space-y-4 md:space-y-6 order-1 lg:order-2 lg:sticky lg:top-8 lg:self-start">
             <Card className="p-6">
               <div className="space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
