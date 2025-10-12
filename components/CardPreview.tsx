@@ -44,14 +44,14 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
         ref={ref}
         className={`relative mx-auto ${className}`}
         style={{
-          maxWidth: size === 'phone' ? '100%' : '360px',
           width: size === 'phone' ? '100%' : 'auto',
+          maxWidth: size === 'phone' ? '100%' : '360px',
           transform: size === 'thumbnail' ? `scale(${scale})` : undefined,
           transformOrigin: 'top center',
           paddingTop: '40px',
           paddingBottom: '60px',
-          paddingLeft: size === 'phone' ? '8px' : '80px',
-          paddingRight: size === 'phone' ? '8px' : '80px',
+          paddingLeft: size === 'phone' ? '0' : '80px',
+          paddingRight: size === 'phone' ? '0' : '80px',
         }}
       >
         {/* Card Container */}
