@@ -27,10 +27,10 @@ export function ExportControls({ cardRef }: ExportControlsProps) {
     <Button 
       onClick={handleExport} 
       size="lg"
-      className="rounded-full shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-110"
+      className="rounded-full shadow-2xl transition-all duration-300 hover:scale-110 text-black font-bold"
       style={{
-        background: 'linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%)',
-        boxShadow: '0 8px 32px rgba(124, 58, 237, 0.4)',
+        background: 'linear-gradient(135deg, #00FF84 0%, #00D96F 100%)',
+        boxShadow: '0 8px 32px rgba(0, 255, 132, 0.5), 0 0 20px rgba(0, 255, 132, 0.3)',
       }}
     >
       <Download className="w-5 h-5 mr-2" />

@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { CardState } from './schema'
-import { defaultAfterState } from './seed-data'
+import { defaultCardState } from './seed-data'
 
 /**
  * Store state interface
@@ -20,14 +20,14 @@ interface EditorStore {
 export const useEditorStore = create<EditorStore>()(
   persist(
     (set) => ({
-      card: defaultAfterState,
+      card: defaultCardState,
       
       updateCard: (updates) =>
         set((state) => ({
           card: { ...state.card, ...updates },
         })),
       
-      resetCard: () => set({ card: defaultAfterState }),
+      resetCard: () => set({ card: defaultCardState }),
     }),
     {
       name: 'facecard-editor-storage',

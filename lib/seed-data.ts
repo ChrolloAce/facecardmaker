@@ -1,99 +1,41 @@
 import { CardState } from './schema'
 
 /**
- * Default "Before" state - lower ratings, needs improvement
+ * Default card state with 6 stats
  */
-export const defaultBeforeState: CardState = {
-  headlinePrefix: "You're a",
-  score: 7.2,
-  percentileText: 'Top 68% of men',
+export const defaultCardState: CardState = {
   avatarUrl: undefined,
-  brandText: 'The Facecard App',
-  hintText: 'Swipe for detailed analysis →',
-  traits: [
+  brandText: 'umax',
+  stats: [
     {
       id: '1',
-      icon: '✨',
-      label: 'Skin',
-      sublabel: 'Needs Improvement',
-      rating: 7.0,
+      label: 'Overall',
+      value: 96,
     },
     {
       id: '2',
-      icon: '🔥',
-      label: 'Masculinity',
-      sublabel: 'Average Dimorphism',
-      rating: 7.5,
+      label: 'Jawline',
+      value: 94,
     },
     {
       id: '3',
-      icon: '😐',
-      label: 'Jawline',
-      sublabel: 'Moderately Defined',
-      rating: 7.8,
+      label: 'Cheekbones',
+      value: 92,
     },
     {
       id: '4',
-      icon: '💇',
-      label: 'Hairline',
-      sublabel: 'Receding Slightly',
-      rating: 6.8,
+      label: 'Eyes',
+      value: 98,
     },
     {
       id: '5',
-      icon: '👁️',
-      label: 'Eyes',
-      sublabel: 'Standard Shape',
-      rating: 7.1,
-    },
-  ],
-}
-
-/**
- * Default "After" state - improved ratings
- */
-export const defaultAfterState: CardState = {
-  headlinePrefix: "You're a",
-  score: 8.9,
-  percentileText: 'Top 92% of men',
-  avatarUrl: undefined,
-  brandText: 'The Facecard App',
-  hintText: 'Swipe for detailed analysis →',
-  traits: [
-    {
-      id: '1',
-      icon: '✨',
       label: 'Skin',
-      sublabel: 'Excellent Texture',
-      rating: 9.1,
+      value: 89,
     },
     {
-      id: '2',
-      icon: '🔥',
-      label: 'Masculinity',
-      sublabel: 'Moderate Dimorphism',
-      rating: 9.0,
-    },
-    {
-      id: '3',
-      icon: '😊',
-      label: 'Jawline',
-      sublabel: 'Well Defined',
-      rating: 9.4,
-    },
-    {
-      id: '4',
-      icon: '💇‍♂️',
-      label: 'Hairline',
-      sublabel: 'Lush Thick Hair',
-      rating: 9.1,
-    },
-    {
-      id: '5',
-      icon: '👁️',
-      label: 'Eyes',
-      sublabel: 'Almond Shape',
-      rating: 8.4,
+      id: '6',
+      label: 'Symmetry',
+      value: 95,
     },
   ],
 }

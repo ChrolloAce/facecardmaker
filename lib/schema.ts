@@ -1,29 +1,23 @@
 import { z } from 'zod'
 
 /**
- * Schema for a single trait row in the card
+ * Schema for a single stat in the card
  */
-export const TraitSchema = z.object({
+export const StatSchema = z.object({
   id: z.string(),
-  icon: z.string(),
   label: z.string(),
-  sublabel: z.string().optional(),
-  rating: z.number().min(0).max(10),
+  value: z.number().min(0).max(100), // 0-100 score
 })
 
-export type Trait = z.infer<typeof TraitSchema>
+export type Stat = z.infer<typeof StatSchema>
 
 /**
  * Schema for the complete card state
  */
 export const CardStateSchema = z.object({
-  headlinePrefix: z.string().default("You're a"),
-  score: z.number().min(0).max(10),
-  percentileText: z.string(),
   avatarUrl: z.string().optional(),
-  brandText: z.string().default('The Facecard App'),
-  hintText: z.string().default('Swipe for detailed analysis →'),
-  traits: z.array(TraitSchema),
+  brandText: z.string().default('umax'),
+  stats: z.array(StatSchema).length(6), // Exactly 6 stats (3 per column)
 })
 
 export type CardState = z.infer<typeof CardStateSchema>

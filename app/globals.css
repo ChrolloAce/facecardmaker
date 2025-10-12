@@ -44,17 +44,14 @@
 }
 
 :root {
-  /* FaceCard Custom Theme */
-  --app-bg: #0B0C0F;
-  --card-bg: #1B1C1F;
-  --card-border: #2A2B31;
-  --text-primary: #F7F8FA;
-  --text-secondary: #E7E9EE;
-  --text-muted: #9DA3AE;
-  --text-muted-2: #A8ABB3;
-  --text-subtle: #8A8F99;
-  --brand: #8B5CF6;
-  --brand-dark: #7C3AED;
+  /* Sleek Analytics Dashboard Theme */
+  --app-bg: #000000;
+  --card-bg: #0D0D0D;
+  --card-border: #1E1E1E;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B3B3B3;
+  --neon-green: #00FF84;
+  --progress-track: #1E1E1E;
   
   /* Shadcn defaults */
   --radius: 0.625rem;
@@ -92,19 +89,19 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: oklch(0 0 0); /* Pure black */
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
+  --card: oklch(0.051 0 0); /* #0D0D0D equivalent */
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
+  --popover: oklch(0.051 0 0);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
+  --primary-foreground: oklch(0.051 0 0);
+  --secondary: oklch(0.118 0 0); /* #1E1E1E */
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
+  --muted: oklch(0.118 0 0);
+  --muted-foreground: oklch(0.7 0 0); /* #B3B3B3 */
+  --accent: oklch(0.118 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
@@ -115,11 +112,11 @@
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
+  --sidebar: oklch(0.051 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent: oklch(0.118 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);

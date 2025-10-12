@@ -5,7 +5,6 @@ import { useEditorStore } from '@/lib/store'
 import { CardPreview } from '@/components/CardPreview'
 import { EditorPanel } from '@/components/EditorPanel'
 import { ExportControls } from '@/components/ExportControls'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
@@ -19,15 +18,15 @@ export default function Home() {
   const cardRef = useRef<HTMLDivElement>(null)
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0B0C0F] to-[#08090A]">
+    <div className="min-h-screen bg-black">
       {/* Header */}
-      <header className="border-b border-white/10 bg-black/20 backdrop-blur-sm">
+      <header className="border-b border-white/10 bg-black backdrop-blur-sm">
         <div className="container mx-auto px-4 py-3 md:py-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex-1 min-w-0">
-              <h1 className="text-xl md:text-2xl font-bold text-white truncate">FaceCard Editor</h1>
+              <h1 className="text-xl md:text-2xl font-bold text-white truncate">Analytics Card Editor</h1>
               <p className="text-xs md:text-sm text-gray-400 hidden sm:block">
-                Create and customize your card
+                Create sleek, futuristic analytics dashboards
               </p>
             </div>
             <div className="flex items-center gap-2 flex-shrink-0 overflow-x-auto">
@@ -79,9 +78,9 @@ export default function Home() {
             <Card className="p-6">
               <h4 className="font-semibold mb-3">Quick Tips</h4>
               <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <li>• Edit traits by adjusting ratings, labels, and emojis</li>
-                <li>• Upload custom avatars with the crop tool</li>
-                <li>• Click the download button to export your card</li>
+                <li>• Edit stats by adjusting values (0-100) and labels</li>
+                <li>• Upload custom profile images with the crop tool</li>
+                <li>• Click the floating download button to export as PNG</li>
                 <li>• All changes are automatically saved to your browser</li>
               </ul>
             </Card>
@@ -90,9 +89,9 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 bg-black/20 backdrop-blur-sm mt-16">
+      <footer className="border-t border-white/10 bg-black backdrop-blur-sm mt-16">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-gray-400">
-          <p>FaceCard Editor • Built with Next.js, React, and Tailwind CSS</p>
+          <p>Analytics Card Editor • Built with Next.js, React, and Tailwind CSS</p>
         </div>
       </footer>
 

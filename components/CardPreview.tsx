@@ -1,7 +1,6 @@
 import React from 'react'
 import { CardState } from '@/lib/schema'
-import { formatScore, getInitials } from '@/lib/format'
-import { TraitRow } from './TraitRow'
+import { getInitials } from '@/lib/format'
 
 interface CardPreviewProps {
   state: CardState
@@ -10,90 +9,150 @@ interface CardPreviewProps {
 }
 
 /**
- * CardPreview - Renders the face card with pixel-accurate styling
- * Matches the reference design exactly
+ * CardPreview - Sleek, futuristic analytics dashboard design
  */
 export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
   ({ state, size = 'phone', className = '' }, ref) => {
     const scale = size === 'thumbnail' ? 0.6 : 1
+    
+    // Split stats into two columns (3 each)
+    const leftColumn = state.stats.slice(0, 3)
+    const rightColumn = state.stats.slice(3, 6)
     
     return (
       <div
         ref={ref}
         className={`relative mx-auto ${className}`}
         style={{
-          maxWidth: size === 'phone' ? '550px' : '330px',
+          maxWidth: size === 'phone' ? '500px' : '300px',
           transform: size === 'thumbnail' ? `scale(${scale})` : undefined,
           transformOrigin: 'top center',
         }}
       >
         {/* Card Container */}
         <div
-          className="relative w-full rounded-[20px] sm:rounded-[28px] border border-[#2A2B31] shadow-2xl overflow-hidden"
+          className="relative w-full rounded-[24px] shadow-2xl overflow-visible pt-12"
           style={{
-            backgroundColor: '#1B1C1F',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 60px rgba(255, 255, 255, 0.02)',
+            backgroundColor: '#0D0D0D',
+            boxShadow: '0 0 60px rgba(0, 255, 132, 0.15), 0 8px 32px rgba(0, 0, 0, 0.8)',
           }}
         >
-          {/* Inner Content */}
-          <div className="px-4 sm:px-6 pt-4 sm:pt-6 pb-4 sm:pb-[18px]">
-            {/* Header Row */}
-            <div className="flex items-start justify-between gap-3 sm:gap-4 mb-3 sm:mb-4">
-              {/* Title Block */}
-              <div className="flex-1 min-w-0">
-                <h1 className="text-[24px] sm:text-[28px] font-bold leading-tight text-white tracking-[-0.3px] mb-0.5">
-                  {state.headlinePrefix} {formatScore(state.score)}
-                </h1>
-                <p className="text-[13px] sm:text-[14px] font-medium text-[#A8ABB3]">
-                  {state.percentileText}
-                </p>
+          {/* Profile Image - Overlapping Top Edge */}
+          <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 z-10">
+            {state.avatarUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={state.avatarUrl}
+                alt="Profile"
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover"
+                style={{
+                  border: '3px solid #FFFFFF',
+                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
+                }}
+              />
+            ) : (
+              <div 
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center text-white text-xl sm:text-2xl font-bold bg-gradient-to-br from-gray-600 to-gray-800"
+                style={{
+                  border: '3px solid #FFFFFF',
+                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
+                }}
+              >
+                {getInitials('User')}
+              </div>
+            )}
+          </div>
+          
+          {/* Card Body */}
+          <div className="px-6 sm:px-8 pt-8 pb-6">
+            {/* Two Column Grid */}
+            <div className="grid grid-cols-2 gap-6 sm:gap-8">
+              {/* Left Column */}
+              <div className="space-y-4 sm:space-y-5">
+                {leftColumn.map((stat) => (
+                  <div key={stat.id} className="space-y-2">
+                    {/* Label */}
+                    <div 
+                      className="text-xs sm:text-sm font-medium tracking-wide"
+                      style={{ color: '#B3B3B3' }}
+                    >
+                      {stat.label}
+                    </div>
+                    
+                    {/* Value */}
+                    <div 
+                      className="text-2xl sm:text-3xl font-bold tracking-tight"
+                      style={{ color: '#FFFFFF' }}
+                    >
+                      {stat.value}
+                    </div>
+                    
+                    {/* Progress Bar */}
+                    <div 
+                      className="h-[6px] rounded-full overflow-hidden"
+                      style={{ backgroundColor: '#1E1E1E' }}
+                    >
+                      <div
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{
+                          width: `${stat.value}%`,
+                          backgroundColor: '#00FF84',
+                          boxShadow: '0 0 8px rgba(0, 255, 132, 0.5)',
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
               
-              {/* Avatar */}
-              <div className="flex-shrink-0">
-                {state.avatarUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={state.avatarUrl}
-                    alt="Avatar"
-                    className="w-12 h-12 sm:w-16 sm:h-16 rounded-full ring-2 ring-white/20 shadow-md object-cover"
-                  />
-                ) : (
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full ring-2 ring-white/20 shadow-md flex items-center justify-center text-white text-base sm:text-lg font-bold bg-gradient-to-br from-purple-600 to-blue-600">
-                    {getInitials(state.percentileText)}
+              {/* Right Column */}
+              <div className="space-y-4 sm:space-y-5">
+                {rightColumn.map((stat) => (
+                  <div key={stat.id} className="space-y-2">
+                    {/* Label */}
+                    <div 
+                      className="text-xs sm:text-sm font-medium tracking-wide"
+                      style={{ color: '#B3B3B3' }}
+                    >
+                      {stat.label}
+                    </div>
+                    
+                    {/* Value */}
+                    <div 
+                      className="text-2xl sm:text-3xl font-bold tracking-tight"
+                      style={{ color: '#FFFFFF' }}
+                    >
+                      {stat.value}
+                    </div>
+                    
+                    {/* Progress Bar */}
+                    <div 
+                      className="h-[6px] rounded-full overflow-hidden"
+                      style={{ backgroundColor: '#1E1E1E' }}
+                    >
+                      <div
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{
+                          width: `${stat.value}%`,
+                          backgroundColor: '#00FF84',
+                          boxShadow: '0 0 8px rgba(0, 255, 132, 0.5)',
+                        }}
+                      />
+                    </div>
                   </div>
-                )}
+                ))}
               </div>
             </div>
-            
-            {/* Divider */}
-            <div className="h-px bg-[#2A2B31] my-3 sm:my-4" />
-            
-            {/* Section Title */}
-            <h2 className="text-[16px] sm:text-[18px] font-bold text-[#E7E9EE] mb-2 mt-1">
-              Your Traits
-            </h2>
-            
-            {/* Traits List */}
-            <div className="space-y-0">
-              {state.traits.map((trait, index) => (
-                <TraitRow
-                  key={trait.id}
-                  trait={trait}
-                  showDivider={index < state.traits.length - 1}
-                />
-              ))}
-            </div>
-            
-            {/* Footer Hint */}
-            <div className="mt-4 sm:mt-6 mb-2 sm:mb-3 text-center">
-              <p className="text-[12px] sm:text-[13px] text-[#9DA3AE]">{state.hintText}</p>
-            </div>
-            
-            {/* Brand Label */}
-            <div className="text-center">
-              <p className="text-[13px] sm:text-[14px] text-[#8A8F99]">{state.brandText}</p>
-            </div>
+          </div>
+          
+          {/* Footer Brand */}
+          <div className="pb-4 text-center">
+            <p 
+              className="text-xs sm:text-sm font-medium opacity-50"
+              style={{ color: '#B3B3B3' }}
+            >
+              {state.brandText}
+            </p>
           </div>
         </div>
       </div>
@@ -102,4 +161,3 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
 )
 
 CardPreview.displayName = 'CardPreview'
-
