@@ -8,16 +8,20 @@ export async function exportCardAsPNG(
   filename: string = 'facecard.png'
 ): Promise<void> {
   try {
+    // Get the actual dimensions of the element
+    const rect = element.getBoundingClientRect()
+    
     const dataUrl = await toPng(element, {
       quality: 1,
       pixelRatio: 3, // Higher resolution for better quality
       cacheBust: true,
       backgroundColor: 'transparent', // Transparent background
+      width: rect.width,
+      height: rect.height,
       style: {
         margin: '0',
-        padding: '120px 100px', // Generous padding to capture full card with glow and make it more square
-        width: 'max-content',
-        height: 'auto',
+        padding: '0',
+        transform: 'scale(1)',
       }
     })
     
