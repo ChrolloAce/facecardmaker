@@ -9,6 +9,25 @@ interface CardPreviewProps {
 }
 
 /**
+ * Get progress bar color based on value
+ */
+const getProgressColor = (value: number): { bg: string; shadow: string } => {
+  if (value >= 91) {
+    // Excellent: Bright neon green
+    return { bg: '#00FF84', shadow: '0 0 8px rgba(0, 255, 132, 0.5)' }
+  } else if (value >= 71) {
+    // Good: Regular green
+    return { bg: '#10B981', shadow: '0 0 8px rgba(16, 185, 129, 0.5)' }
+  } else if (value >= 41) {
+    // Medium: Yellow
+    return { bg: '#FBBF24', shadow: '0 0 8px rgba(251, 191, 36, 0.5)' }
+  } else {
+    // Low: Red
+    return { bg: '#EF4444', shadow: '0 0 8px rgba(239, 68, 68, 0.5)' }
+  }
+}
+
+/**
  * CardPreview - Sleek, futuristic analytics dashboard design
  */
 export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
@@ -71,78 +90,84 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
             <div className="grid grid-cols-2 gap-8 sm:gap-12">
               {/* Left Column */}
               <div className="space-y-6 sm:space-y-8">
-                {leftColumn.map((stat) => (
-                  <div key={stat.id} className="space-y-3">
-                    {/* Label */}
-                    <div 
-                      className="text-xs sm:text-sm font-medium tracking-wide"
-                      style={{ color: '#B3B3B3' }}
-                    >
-                      {stat.label}
+                {leftColumn.map((stat) => {
+                  const colors = getProgressColor(stat.value)
+                  return (
+                    <div key={stat.id} className="space-y-3">
+                      {/* Label */}
+                      <div 
+                        className="text-xs sm:text-sm font-medium tracking-wide"
+                        style={{ color: '#B3B3B3' }}
+                      >
+                        {stat.label}
+                      </div>
+                      
+                      {/* Value */}
+                      <div 
+                        className="text-2xl sm:text-3xl font-bold tracking-tight"
+                        style={{ color: '#FFFFFF' }}
+                      >
+                        {stat.value}
+                      </div>
+                      
+                      {/* Progress Bar */}
+                      <div 
+                        className="h-[6px] rounded-full overflow-hidden"
+                        style={{ backgroundColor: '#1E1E1E' }}
+                      >
+                        <div
+                          className="h-full rounded-full transition-all duration-500"
+                          style={{
+                            width: `${stat.value}%`,
+                            backgroundColor: colors.bg,
+                            boxShadow: colors.shadow,
+                          }}
+                        />
+                      </div>
                     </div>
-                    
-                    {/* Value */}
-                    <div 
-                      className="text-2xl sm:text-3xl font-bold tracking-tight"
-                      style={{ color: '#FFFFFF' }}
-                    >
-                      {stat.value}
-                    </div>
-                    
-                    {/* Progress Bar */}
-                    <div 
-                      className="h-[6px] rounded-full overflow-hidden"
-                      style={{ backgroundColor: '#1E1E1E' }}
-                    >
-                      <div
-                        className="h-full rounded-full transition-all duration-500"
-                        style={{
-                          width: `${stat.value}%`,
-                          backgroundColor: '#00FF84',
-                          boxShadow: '0 0 8px rgba(0, 255, 132, 0.5)',
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
               
               {/* Right Column */}
               <div className="space-y-6 sm:space-y-8">
-                {rightColumn.map((stat) => (
-                  <div key={stat.id} className="space-y-3">
-                    {/* Label */}
-                    <div 
-                      className="text-xs sm:text-sm font-medium tracking-wide"
-                      style={{ color: '#B3B3B3' }}
-                    >
-                      {stat.label}
+                {rightColumn.map((stat) => {
+                  const colors = getProgressColor(stat.value)
+                  return (
+                    <div key={stat.id} className="space-y-3">
+                      {/* Label */}
+                      <div 
+                        className="text-xs sm:text-sm font-medium tracking-wide"
+                        style={{ color: '#B3B3B3' }}
+                      >
+                        {stat.label}
+                      </div>
+                      
+                      {/* Value */}
+                      <div 
+                        className="text-2xl sm:text-3xl font-bold tracking-tight"
+                        style={{ color: '#FFFFFF' }}
+                      >
+                        {stat.value}
+                      </div>
+                      
+                      {/* Progress Bar */}
+                      <div 
+                        className="h-[6px] rounded-full overflow-hidden"
+                        style={{ backgroundColor: '#1E1E1E' }}
+                      >
+                        <div
+                          className="h-full rounded-full transition-all duration-500"
+                          style={{
+                            width: `${stat.value}%`,
+                            backgroundColor: colors.bg,
+                            boxShadow: colors.shadow,
+                          }}
+                        />
+                      </div>
                     </div>
-                    
-                    {/* Value */}
-                    <div 
-                      className="text-2xl sm:text-3xl font-bold tracking-tight"
-                      style={{ color: '#FFFFFF' }}
-                    >
-                      {stat.value}
-                    </div>
-                    
-                    {/* Progress Bar */}
-                    <div 
-                      className="h-[6px] rounded-full overflow-hidden"
-                      style={{ backgroundColor: '#1E1E1E' }}
-                    >
-                      <div
-                        className="h-full rounded-full transition-all duration-500"
-                        style={{
-                          width: `${stat.value}%`,
-                          backgroundColor: '#00FF84',
-                          boxShadow: '0 0 8px rgba(0, 255, 132, 0.5)',
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
           </div>

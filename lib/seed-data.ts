@@ -10,32 +10,32 @@ export const defaultCardState: CardState = {
     {
       id: '1',
       label: 'Overall',
-      value: 96,
+      value: 96, // Neon green (91+)
     },
     {
       id: '2',
       label: 'Jawline',
-      value: 94,
+      value: 82, // Green (71-90)
     },
     {
       id: '3',
       label: 'Cheekbones',
-      value: 92,
+      value: 65, // Yellow (41-70)
     },
     {
       id: '4',
       label: 'Eyes',
-      value: 98,
+      value: 98, // Neon green (91+)
     },
     {
       id: '5',
       label: 'Skin',
-      value: 89,
+      value: 38, // Red (0-40)
     },
     {
       id: '6',
       label: 'Symmetry',
-      value: 95,
+      value: 75, // Green (71-90)
     },
   ],
 }

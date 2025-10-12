@@ -30,7 +30,7 @@ export const useEditorStore = create<EditorStore>()(
       resetCard: () => set({ card: defaultCardState }),
     }),
     {
-      name: 'facecard-editor-v3', // Updated to fix typo in stored data
+      name: 'facecard-editor-v4', // Updated with color-coded progress bars
     }
   )
 )
