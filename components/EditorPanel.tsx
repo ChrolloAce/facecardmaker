@@ -75,15 +75,6 @@ export function EditorPanel({
           currentUrl={state.avatarUrl}
           onUrlChange={(url) => onUpdate({ avatarUrl: url })}
         />
-
-        <div>
-          <Label>Brand Text</Label>
-          <Input
-            value={state.brandText}
-            onChange={(e) => onUpdate({ brandText: e.target.value })}
-            placeholder="umax"
-          />
-        </div>
       </div>
 
       {/* Stats Section */}

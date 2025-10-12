@@ -5,7 +5,7 @@ import { CardState } from './schema'
  */
 export const defaultCardState: CardState = {
   avatarUrl: undefined,
-  brandText: 'umax',
+  brandText: 'The Facecard App',
   stats: [
     {
       id: '1',

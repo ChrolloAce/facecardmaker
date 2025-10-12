@@ -28,6 +28,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
           maxWidth: size === 'phone' ? '500px' : '300px',
           transform: size === 'thumbnail' ? `scale(${scale})` : undefined,
           transformOrigin: 'top center',
+          paddingTop: '60px', // Add padding to capture overlapping profile image
         }}
       >
         {/* Card Container */}
@@ -35,7 +36,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
           className="relative w-full rounded-[24px] shadow-2xl overflow-visible pt-12"
           style={{
             backgroundColor: '#0D0D0D',
-            boxShadow: '0 0 60px rgba(0, 255, 132, 0.15), 0 8px 32px rgba(0, 0, 0, 0.8)',
+            boxShadow: '0 0 80px rgba(0, 255, 132, 0.3), 0 0 120px rgba(0, 255, 132, 0.15), 0 8px 32px rgba(0, 0, 0, 0.8)',
           }}
         >
           {/* Profile Image - Overlapping Top Edge */}
