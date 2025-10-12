@@ -30,7 +30,7 @@ export const useEditorStore = create<EditorStore>()(
       resetCard: () => set({ card: defaultCardState }),
     }),
     {
-      name: 'facecard-editor-storage',
+      name: 'analytics-card-editor-v2', // Changed key to avoid old schema conflicts
     }
   )
 )

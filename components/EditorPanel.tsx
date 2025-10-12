@@ -29,23 +29,25 @@ export function EditorPanel({
   label,
 }: EditorPanelProps) {
   const updateStat = (id: string, updates: Partial<Stat>) => {
-    const updatedStats = state.stats.map((stat) =>
+    const updatedStats = (state.stats || []).map((stat) =>
       stat.id === id ? { ...stat, ...updates } : stat
     )
     onUpdate({ stats: updatedStats })
   }
 
   const removeStat = (id: string) => {
-    if (state.stats.length <= 6) {
+    const stats = state.stats || []
+    if (stats.length <= 6) {
       alert('You must have exactly 6 stats')
       return
     }
-    const updatedStats = state.stats.filter((stat) => stat.id !== id)
+    const updatedStats = stats.filter((stat) => stat.id !== id)
     onUpdate({ stats: updatedStats })
   }
 
   const addStat = () => {
-    if (state.stats.length >= 6) {
+    const stats = state.stats || []
+    if (stats.length >= 6) {
       alert('Maximum 6 stats allowed')
       return
     }
@@ -54,7 +56,7 @@ export function EditorPanel({
       label: 'New Stat',
       value: 50,
     }
-    onUpdate({ stats: [...state.stats, newStat] })
+    onUpdate({ stats: [...stats, newStat] })
   }
 
   return (
@@ -88,7 +90,7 @@ export function EditorPanel({
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <Label className="text-base font-semibold">Stats (6 required)</Label>
-          {state.stats.length < 6 && (
+          {(state.stats || []).length < 6 && (
             <Button variant="outline" size="sm" onClick={addStat}>
               <Plus className="w-4 h-4 mr-1" />
               Add Stat
@@ -97,7 +99,7 @@ export function EditorPanel({
         </div>
 
         <div className="space-y-3">
-          {state.stats.map((stat, index) => (
+          {(state.stats || []).map((stat, index) => (
             <div
               key={stat.id}
               className="p-4 border rounded-lg space-y-3 bg-gray-50 dark:bg-gray-800"
@@ -150,7 +152,7 @@ export function EditorPanel({
                     </div>
                   </div>
                 </div>
-                {state.stats.length > 6 && (
+                {(state.stats || []).length > 6 && (
                   <Button
                     variant="ghost"
                     size="sm"

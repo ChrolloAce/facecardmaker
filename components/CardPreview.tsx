@@ -15,9 +15,10 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
   ({ state, size = 'phone', className = '' }, ref) => {
     const scale = size === 'thumbnail' ? 0.6 : 1
     
-    // Split stats into two columns (3 each)
-    const leftColumn = state.stats.slice(0, 3)
-    const rightColumn = state.stats.slice(3, 6)
+    // Split stats into two columns (3 each) with safety check
+    const stats = state.stats || []
+    const leftColumn = stats.slice(0, 3)
+    const rightColumn = stats.slice(3, 6)
     
     return (
       <div
