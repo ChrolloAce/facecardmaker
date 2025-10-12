@@ -15,7 +15,9 @@ export async function exportCardAsPNG(
       backgroundColor: 'transparent', // Transparent background
       style: {
         margin: '0',
-        padding: '80px', // Add padding to capture glow and overlapping avatar
+        padding: '120px 100px', // Generous padding to capture full card with glow and make it more square
+        width: 'max-content',
+        height: 'auto',
       }
     })
     
