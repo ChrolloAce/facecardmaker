@@ -60,14 +60,14 @@ export default function Home() {
 
           {/* Preview Panel */}
           <div className="space-y-4 md:space-y-6 order-1 lg:order-2 lg:sticky lg:top-8 lg:self-start">
-            <Card className="p-2 sm:p-6">
+            <Card className="p-6">
               <div className="space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 sm:px-0 pt-4 sm:pt-0">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <h3 className="text-lg font-semibold">Preview</h3>
                 </div>
 
-                <div className="min-h-[600px] flex items-center justify-center p-0 sm:p-4">
-                  <div ref={cardRef} className="w-full">
+                <div className="min-h-[600px] flex items-center justify-center p-4">
+                  <div ref={cardRef}>
                     <CardPreview state={card} />
                   </div>
                 </div>
