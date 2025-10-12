@@ -148,7 +148,13 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
           </div>
           
           {/* Footer Brand */}
-          <div className="pb-6 pt-4 text-center">
+          <div className="pb-6 pt-4 flex items-center justify-center gap-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img 
+              src="/logo.jpg" 
+              alt="Logo" 
+              className="w-6 h-6 sm:w-8 sm:h-8 rounded-sm object-cover"
+            />
             <p 
               className="text-sm sm:text-base font-semibold"
               style={{ color: '#FFFFFF' }}
