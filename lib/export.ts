@@ -12,7 +12,7 @@ export async function exportCardAsPNG(
       quality: 1,
       pixelRatio: 3, // Higher resolution for better quality
       cacheBust: true,
-      backgroundColor: '#000000', // Black background instead of transparent
+      backgroundColor: 'transparent', // Transparent background
       style: {
         margin: '0',
         padding: '0',
