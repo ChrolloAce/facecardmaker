@@ -42,30 +42,31 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
     return (
       <div
         ref={ref}
-        className={`relative mx-auto ${className}`}
+        className={`relative mx-auto px-2 sm:px-4 ${className}`}
         style={{
           maxWidth: size === 'phone' ? '600px' : '360px',
           transform: size === 'thumbnail' ? `scale(${scale})` : undefined,
           transformOrigin: 'top center',
-          padding: '80px', // Add padding all around to capture glow and profile image
+          paddingTop: '40px',
+          paddingBottom: '60px',
         }}
       >
         {/* Card Container */}
         <div
-          className="relative w-full rounded-[24px] shadow-2xl overflow-visible pt-12"
+          className="relative w-full rounded-[20px] sm:rounded-[24px] shadow-2xl overflow-visible pt-10 sm:pt-12"
           style={{
             backgroundColor: '#0D0D0D',
-            boxShadow: '0 0 80px rgba(0, 255, 132, 0.3), 0 0 120px rgba(0, 255, 132, 0.15), 0 8px 32px rgba(0, 0, 0, 0.8)',
+            boxShadow: '0 0 60px rgba(0, 255, 132, 0.3), 0 0 100px rgba(0, 255, 132, 0.15), 0 8px 32px rgba(0, 0, 0, 0.8)',
           }}
         >
           {/* Profile Image - Overlapping Top Edge */}
-          <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 z-10">
+          <div className="absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 z-10">
             {state.avatarUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={state.avatarUrl}
                 alt="Profile"
-                className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover"
+                className="w-16 h-16 sm:w-20 md:w-24 sm:h-20 md:h-24 rounded-full object-cover"
                 style={{
                   border: '3px solid #FFFFFF',
                   boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
@@ -73,7 +74,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
               />
             ) : (
               <div 
-                className="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center text-white text-xl sm:text-2xl font-bold bg-gradient-to-br from-gray-600 to-gray-800"
+                className="w-16 h-16 sm:w-20 md:w-24 sm:h-20 md:h-24 rounded-full flex items-center justify-center text-white text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-br from-gray-600 to-gray-800"
                 style={{
                   border: '3px solid #FFFFFF',
                   boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
@@ -85,18 +86,18 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
           </div>
           
           {/* Card Body */}
-          <div className="px-8 sm:px-12 pt-8 pb-8">
+          <div className="px-4 sm:px-8 md:px-12 pt-6 sm:pt-8 pb-6 sm:pb-8">
             {/* Two Column Grid */}
-            <div className="grid grid-cols-2 gap-8 sm:gap-12">
+            <div className="grid grid-cols-2 gap-4 sm:gap-8 md:gap-12">
               {/* Left Column */}
-              <div className="space-y-6 sm:space-y-8">
+              <div className="space-y-4 sm:space-y-6 md:space-y-8">
                 {leftColumn.map((stat) => {
                   const colors = getProgressColor(stat.value)
                   return (
-                    <div key={stat.id} className="space-y-3">
+                    <div key={stat.id} className="space-y-2 sm:space-y-3">
                       {/* Label */}
                       <div 
-                        className="text-xs sm:text-sm font-medium tracking-wide"
+                        className="text-[10px] sm:text-xs md:text-sm font-medium tracking-wide"
                         style={{ color: '#B3B3B3' }}
                       >
                         {stat.label}
@@ -104,7 +105,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                       
                       {/* Value */}
                       <div 
-                        className="text-2xl sm:text-3xl font-bold tracking-tight"
+                        className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight"
                         style={{ color: '#FFFFFF' }}
                       >
                         {stat.value}
@@ -112,7 +113,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                       
                       {/* Progress Bar */}
                       <div 
-                        className="h-[6px] rounded-full overflow-hidden"
+                        className="h-[5px] sm:h-[6px] rounded-full overflow-hidden"
                         style={{ backgroundColor: '#1E1E1E' }}
                       >
                         <div
@@ -130,14 +131,14 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
               </div>
               
               {/* Right Column */}
-              <div className="space-y-6 sm:space-y-8">
+              <div className="space-y-4 sm:space-y-6 md:space-y-8">
                 {rightColumn.map((stat) => {
                   const colors = getProgressColor(stat.value)
                   return (
-                    <div key={stat.id} className="space-y-3">
+                    <div key={stat.id} className="space-y-2 sm:space-y-3">
                       {/* Label */}
                       <div 
-                        className="text-xs sm:text-sm font-medium tracking-wide"
+                        className="text-[10px] sm:text-xs md:text-sm font-medium tracking-wide"
                         style={{ color: '#B3B3B3' }}
                       >
                         {stat.label}
@@ -145,7 +146,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                       
                       {/* Value */}
                       <div 
-                        className="text-2xl sm:text-3xl font-bold tracking-tight"
+                        className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight"
                         style={{ color: '#FFFFFF' }}
                       >
                         {stat.value}
@@ -153,7 +154,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                       
                       {/* Progress Bar */}
                       <div 
-                        className="h-[6px] rounded-full overflow-hidden"
+                        className="h-[5px] sm:h-[6px] rounded-full overflow-hidden"
                         style={{ backgroundColor: '#1E1E1E' }}
                       >
                         <div
@@ -173,15 +174,15 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
           </div>
           
           {/* Footer Brand */}
-          <div className="pb-6 pt-4 flex items-center justify-center gap-2">
+          <div className="pb-4 sm:pb-6 pt-3 sm:pt-4 flex items-center justify-center gap-1.5 sm:gap-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src="/logo.jpg" 
               alt="Logo" 
-              className="w-6 h-6 sm:w-8 sm:h-8 rounded-sm object-cover"
+              className="w-5 h-5 sm:w-6 md:w-8 sm:h-6 md:h-8 rounded-sm object-cover"
             />
             <p 
-              className="text-sm sm:text-base font-semibold"
+              className="text-xs sm:text-sm md:text-base font-semibold"
               style={{ color: '#FFFFFF' }}
             >
               {state.brandText}
