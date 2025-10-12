@@ -10,9 +10,13 @@ export async function exportCardAsPNG(
   try {
     const dataUrl = await toPng(element, {
       quality: 1,
-      pixelRatio: 2,
+      pixelRatio: 3, // Higher resolution for better quality
       cacheBust: true,
-      backgroundColor: 'transparent',
+      backgroundColor: '#000000', // Black background instead of transparent
+      style: {
+        margin: '0',
+        padding: '0',
+      }
     })
     
     downloadDataUrl(dataUrl, filename)

@@ -25,10 +25,10 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
         ref={ref}
         className={`relative mx-auto ${className}`}
         style={{
-          maxWidth: size === 'phone' ? '500px' : '300px',
+          maxWidth: size === 'phone' ? '600px' : '360px',
           transform: size === 'thumbnail' ? `scale(${scale})` : undefined,
           transformOrigin: 'top center',
-          paddingTop: '60px', // Add padding to capture overlapping profile image
+          padding: '80px', // Add padding all around to capture glow and profile image
         }}
       >
         {/* Card Container */}
@@ -66,13 +66,13 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
           </div>
           
           {/* Card Body */}
-          <div className="px-6 sm:px-8 pt-8 pb-6">
+          <div className="px-8 sm:px-12 pt-8 pb-8">
             {/* Two Column Grid */}
-            <div className="grid grid-cols-2 gap-6 sm:gap-8">
+            <div className="grid grid-cols-2 gap-8 sm:gap-12">
               {/* Left Column */}
-              <div className="space-y-4 sm:space-y-5">
+              <div className="space-y-6 sm:space-y-8">
                 {leftColumn.map((stat) => (
-                  <div key={stat.id} className="space-y-2">
+                  <div key={stat.id} className="space-y-3">
                     {/* Label */}
                     <div 
                       className="text-xs sm:text-sm font-medium tracking-wide"
@@ -108,9 +108,9 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
               </div>
               
               {/* Right Column */}
-              <div className="space-y-4 sm:space-y-5">
+              <div className="space-y-6 sm:space-y-8">
                 {rightColumn.map((stat) => (
-                  <div key={stat.id} className="space-y-2">
+                  <div key={stat.id} className="space-y-3">
                     {/* Label */}
                     <div 
                       className="text-xs sm:text-sm font-medium tracking-wide"
@@ -148,10 +148,10 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
           </div>
           
           {/* Footer Brand */}
-          <div className="pb-4 text-center">
+          <div className="pb-6 pt-4 text-center">
             <p 
-              className="text-xs sm:text-sm font-medium opacity-50"
-              style={{ color: '#B3B3B3' }}
+              className="text-sm sm:text-base font-semibold"
+              style={{ color: '#FFFFFF' }}
             >
               {state.brandText}
             </p>
