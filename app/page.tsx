@@ -44,11 +44,11 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6 md:py-8 max-w-[1400px]">
+      <div className="container mx-auto px-0 sm:px-4 py-4 sm:py-6 md:py-8 max-w-[1400px]">
         <div className="grid lg:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
           {/* Editor Panel */}
-          <div className="space-y-4 md:space-y-6 order-2 lg:order-1">
-            <Card className="p-6">
+          <div className="space-y-4 md:space-y-6 order-2 lg:order-1 px-2 sm:px-0">
+            <Card className="p-4 sm:p-6">
               <EditorPanel
                 state={card}
                 onUpdate={updateCard}
@@ -59,15 +59,15 @@ export default function Home() {
           </div>
 
           {/* Preview Panel */}
-          <div className="space-y-4 md:space-y-6 order-1 lg:order-2 lg:sticky lg:top-8 lg:self-start">
-            <Card className="p-6">
+          <div className="space-y-4 md:space-y-6 order-1 lg:order-2 lg:sticky lg:top-8 lg:self-start px-2 sm:px-0">
+            <Card className="p-2 sm:p-6">
               <div className="space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-2 sm:px-0">
                   <h3 className="text-lg font-semibold">Preview</h3>
                 </div>
 
-                <div className="min-h-[600px] flex items-center justify-center p-4">
-                  <div ref={cardRef}>
+                <div className="min-h-[600px] flex items-center justify-center p-0 sm:p-4">
+                  <div ref={cardRef} className="w-full">
                     <CardPreview state={card} />
                   </div>
                 </div>
@@ -75,7 +75,7 @@ export default function Home() {
             </Card>
 
             {/* Quick Tips */}
-            <Card className="p-6">
+            <Card className="p-4 sm:p-6">
               <h4 className="font-semibold mb-3">Quick Tips</h4>
               <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                 <li>• Edit stats by adjusting values (0-100) and labels</li>
