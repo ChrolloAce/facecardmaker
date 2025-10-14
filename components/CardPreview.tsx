@@ -113,7 +113,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                       
                       {/* Progress Bar */}
                       <div 
-                        className="h-[5px] sm:h-[6px] rounded-full overflow-hidden"
+                        className="h-[6px] sm:h-[6px] rounded-full overflow-hidden"
                         style={{ backgroundColor: '#1E1E1E' }}
                       >
                         <div
@@ -154,7 +154,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                       
                       {/* Progress Bar */}
                       <div 
-                        className="h-[5px] sm:h-[6px] rounded-full overflow-hidden"
+                        className="h-[6px] sm:h-[6px] rounded-full overflow-hidden"
                         style={{ backgroundColor: '#1E1E1E' }}
                       >
                         <div
