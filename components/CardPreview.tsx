@@ -47,7 +47,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
           maxWidth: size === 'phone' ? '600px' : '360px',
           transform: size === 'thumbnail' ? `scale(${scale})` : undefined,
           transformOrigin: 'top center',
-          padding: '60px 20px',
+          padding: '80px 60px',
           width: '100%',
         }}
       >
