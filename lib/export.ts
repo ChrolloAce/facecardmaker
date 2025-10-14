@@ -8,38 +8,41 @@ export async function exportCardAsPNG(
   filename: string = 'facecard.png'
 ): Promise<void> {
   try {
-    // Store original padding
-    const originalPadding = element.style.padding
+    // Clone the element to avoid affecting the visible card
+    const clone = element.cloneNode(true) as HTMLElement
     
-    // Temporarily increase padding for export to ensure full capture
-    element.style.padding = '120px 100px'
+    // Style the clone for export with proper padding
+    clone.style.position = 'absolute'
+    clone.style.left = '-9999px'
+    clone.style.top = '0'
+    clone.style.padding = '120px 100px'
+    clone.style.width = '600px' // Fixed width for consistent export
+    clone.style.maxWidth = '600px'
     
-    // Wait a tick for the style to apply
-    await new Promise(resolve => setTimeout(resolve, 100))
+    // Add clone to body temporarily
+    document.body.appendChild(clone)
     
-    // Get the dimensions after padding change
-    const rect = element.getBoundingClientRect()
+    // Wait for DOM to settle and styles to apply
+    await new Promise(resolve => setTimeout(resolve, 300))
     
-    const dataUrl = await toPng(element, {
+    // Capture the clone
+    const dataUrl = await toPng(clone, {
       quality: 1,
       pixelRatio: 3, // Higher resolution for better quality
       cacheBust: true,
       backgroundColor: 'transparent', // Transparent background
-      width: rect.width,
-      height: rect.height,
       style: {
         margin: '0',
-        transform: 'scale(1)',
+        padding: '120px 100px',
+        width: '600px',
       }
     })
     
-    // Restore original padding
-    element.style.padding = originalPadding
+    // Remove clone from DOM
+    document.body.removeChild(clone)
     
     downloadDataUrl(dataUrl, filename)
   } catch (error) {
-    // Make sure to restore padding even if export fails
-    element.style.padding = element.style.padding || '60px 20px'
     console.error('Failed to export PNG:', error)
     throw error
   }
