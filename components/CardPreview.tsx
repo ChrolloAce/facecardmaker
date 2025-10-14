@@ -97,7 +97,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                     <div key={stat.id} className="space-y-2 sm:space-y-3">
                       {/* Label */}
                       <div 
-                        className="text-[10px] sm:text-xs md:text-sm font-medium tracking-wide"
+                        className="text-xs sm:text-xs md:text-sm font-medium tracking-wide"
                         style={{ color: '#B3B3B3' }}
                       >
                         {stat.label}
@@ -105,7 +105,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                       
                       {/* Value */}
                       <div 
-                        className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight"
+                        className="text-2xl sm:text-2xl md:text-3xl font-bold tracking-tight"
                         style={{ color: '#FFFFFF' }}
                       >
                         {stat.value}
@@ -138,7 +138,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                     <div key={stat.id} className="space-y-2 sm:space-y-3">
                       {/* Label */}
                       <div 
-                        className="text-[10px] sm:text-xs md:text-sm font-medium tracking-wide"
+                        className="text-xs sm:text-xs md:text-sm font-medium tracking-wide"
                         style={{ color: '#B3B3B3' }}
                       >
                         {stat.label}
@@ -146,7 +146,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                       
                       {/* Value */}
                       <div 
-                        className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight"
+                        className="text-2xl sm:text-2xl md:text-3xl font-bold tracking-tight"
                         style={{ color: '#FFFFFF' }}
                       >
                         {stat.value}
