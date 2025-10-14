@@ -8,7 +8,16 @@ export async function exportCardAsPNG(
   filename: string = 'facecard.png'
 ): Promise<void> {
   try {
-    // Get the actual dimensions of the element
+    // Store original padding
+    const originalPadding = element.style.padding
+    
+    // Temporarily increase padding for export to ensure full capture
+    element.style.padding = '120px 100px'
+    
+    // Wait a tick for the style to apply
+    await new Promise(resolve => setTimeout(resolve, 100))
+    
+    // Get the dimensions after padding change
     const rect = element.getBoundingClientRect()
     
     const dataUrl = await toPng(element, {
@@ -20,13 +29,17 @@ export async function exportCardAsPNG(
       height: rect.height,
       style: {
         margin: '0',
-        padding: '0',
         transform: 'scale(1)',
       }
     })
     
+    // Restore original padding
+    element.style.padding = originalPadding
+    
     downloadDataUrl(dataUrl, filename)
   } catch (error) {
+    // Make sure to restore padding even if export fails
+    element.style.padding = element.style.padding || '60px 20px'
     console.error('Failed to export PNG:', error)
     throw error
   }

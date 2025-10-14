@@ -47,7 +47,8 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
           maxWidth: size === 'phone' ? '600px' : '360px',
           transform: size === 'thumbnail' ? `scale(${scale})` : undefined,
           transformOrigin: 'top center',
-          padding: '100px 80px',
+          padding: '60px 20px',
+          width: '100%',
         }}
       >
         {/* Card Container */}
@@ -85,9 +86,9 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
           </div>
           
           {/* Card Body */}
-          <div className="px-4 sm:px-8 md:px-12 pt-6 sm:pt-8 pb-6 sm:pb-8">
+          <div className="px-6 sm:px-8 md:px-12 pt-6 sm:pt-8 pb-6 sm:pb-8">
             {/* Two Column Grid */}
-            <div className="grid grid-cols-2 gap-4 sm:gap-8 md:gap-12">
+            <div className="grid grid-cols-2 gap-6 sm:gap-8 md:gap-12">
               {/* Left Column */}
               <div className="space-y-4 sm:space-y-6 md:space-y-8">
                 {leftColumn.map((stat) => {
