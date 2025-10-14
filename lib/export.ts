@@ -13,14 +13,6 @@ export async function exportCardAsPNG(
       pixelRatio: 3,
       cacheBust: true,
       backgroundColor: 'transparent',
-      width: 840, // 600px card + 120px padding on each side
-      height: 840, // Square format
-      style: {
-        padding: '120px',
-        width: '600px',
-        maxWidth: '600px',
-        margin: '0 auto',
-      }
     })
     
     downloadDataUrl(dataUrl, filename)
