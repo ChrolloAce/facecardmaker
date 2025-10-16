@@ -17,19 +17,37 @@ export function ExportControls({ cardRef }: ExportControlsProps) {
     try {
       if (!cardRef.current) {
         console.error('Card ref not found')
+        alert('Card element not found. Please refresh the page.')
         return
       }
       
       // Debug: Check what images are in the element
       const images = cardRef.current.querySelectorAll('img')
+      console.log('=== PRE-EXPORT DEBUG ===')
       console.log('Found images to export:', images.length)
+      
       images.forEach((img, i) => {
-        console.log(`Image ${i}:`, {
+        const isDataUrl = img.src.startsWith('data:')
+        console.log(`Image ${i} (${isDataUrl ? 'DATA URL' : 'REGULAR'}):`, {
           complete: img.complete,
+          naturalWidth: img.naturalWidth,
           naturalHeight: img.naturalHeight,
-          src: img.src.substring(0, 50) + '...'
+          hasAlt: img.alt,
+          srcPreview: isDataUrl ? 'data:image/...' : img.src,
+          displayStyle: window.getComputedStyle(img).display,
+          visibility: window.getComputedStyle(img).visibility,
         })
       })
+      
+      // Check if avatar image exists
+      const avatarImage = images[0] // Should be the first image
+      if (avatarImage && avatarImage.src.startsWith('data:')) {
+        console.log('✅ Avatar data URL found, size:', avatarImage.naturalWidth, 'x', avatarImage.naturalHeight)
+      } else if (avatarImage) {
+        console.log('Avatar found but might not be loaded:', avatarImage.src.substring(0, 60))
+      } else {
+        console.warn('⚠️ No avatar image found')
+      }
       
       await exportCardAsPNG(cardRef.current, 'facecard.png')
     } catch (error) {

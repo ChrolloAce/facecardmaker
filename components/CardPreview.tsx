@@ -34,6 +34,18 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
   ({ state, size = 'phone', className = '' }, ref) => {
     const scale = size === 'thumbnail' ? 0.6 : 1
     
+    // Debug avatar state
+    React.useEffect(() => {
+      if (state.avatarUrl) {
+        console.log('🖼️ CardPreview received avatar:', {
+          isDataUrl: state.avatarUrl.startsWith('data:'),
+          sizeKB: Math.round(state.avatarUrl.length / 1024)
+        })
+      } else {
+        console.log('🖼️ CardPreview: No avatar set')
+      }
+    }, [state.avatarUrl])
+    
     // Split stats into two columns (3 each) with safety check
     const stats = state.stats || []
     const leftColumn = stats.slice(0, 3)

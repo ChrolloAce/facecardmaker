@@ -22,10 +22,21 @@ export const useEditorStore = create<EditorStore>()(
     (set) => ({
       card: defaultCardState,
       
-      updateCard: (updates) =>
+      updateCard: (updates) => {
+        // Debug logging for avatar updates
+        if (updates.avatarUrl !== undefined) {
+          const isDataUrl = updates.avatarUrl?.startsWith('data:')
+          console.log('💾 Saving avatar to store:', {
+            hasAvatar: !!updates.avatarUrl,
+            isDataUrl,
+            sizeKB: updates.avatarUrl ? Math.round(updates.avatarUrl.length / 1024) : 0
+          })
+        }
+        
         set((state) => ({
           card: { ...state.card, ...updates },
-        })),
+        }))
+      },
       
       resetCard: () => set({ card: defaultCardState }),
     }),
