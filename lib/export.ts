@@ -1,6 +1,23 @@
 import { toPng, toSvg } from 'html-to-image'
 
 /**
+ * Wait for all images in element to load
+ */
+async function waitForImagesToLoad(element: HTMLElement): Promise<void> {
+  const images = element.querySelectorAll('img')
+  const promises = Array.from(images).map((img) => {
+    if (img.complete) return Promise.resolve()
+    return new Promise((resolve, reject) => {
+      img.onload = resolve
+      img.onerror = reject
+      // Set a timeout in case image fails to load
+      setTimeout(resolve, 3000)
+    })
+  })
+  await Promise.all(promises)
+}
+
+/**
  * Export a single card as PNG
  */
 export async function exportCardAsPNG(
@@ -8,11 +25,23 @@ export async function exportCardAsPNG(
   filename: string = 'facecard.png'
 ): Promise<void> {
   try {
+    // Wait for images to load
+    await waitForImagesToLoad(element)
+    
+    // Add a small delay to ensure everything is rendered
+    await new Promise(resolve => setTimeout(resolve, 100))
+    
     const dataUrl = await toPng(element, {
       quality: 1,
       pixelRatio: 3,
       cacheBust: true,
       backgroundColor: 'transparent',
+      width: 720,
+      height: 900,
+      style: {
+        transform: 'none',
+        margin: '0',
+      },
     })
     
     downloadDataUrl(dataUrl, filename)
