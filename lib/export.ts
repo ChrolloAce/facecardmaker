@@ -28,19 +28,16 @@ export async function exportCardAsPNG(
     // Wait for images to load
     await waitForImagesToLoad(element)
     
-    // Add a small delay to ensure everything is rendered
-    await new Promise(resolve => setTimeout(resolve, 100))
+    // Add a delay to ensure everything is rendered
+    await new Promise(resolve => setTimeout(resolve, 300))
     
     const dataUrl = await toPng(element, {
       quality: 1,
-      pixelRatio: 3,
+      pixelRatio: 2,
       cacheBust: true,
       backgroundColor: 'transparent',
-      width: 720,
-      height: 900,
       style: {
-        transform: 'none',
-        margin: '0',
+        transform: 'scale(1)',
       },
     })
     

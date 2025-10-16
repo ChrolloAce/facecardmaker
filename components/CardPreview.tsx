@@ -76,7 +76,6 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
               <img
                 src={state.avatarUrl}
                 alt="Profile"
-                crossOrigin="anonymous"
                 className="rounded-full object-cover"
                 style={{
                   width: '96px',
@@ -220,7 +219,6 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
             <img 
               src="/logo.jpg" 
               alt="Logo" 
-              crossOrigin="anonymous"
               className="rounded-sm object-cover"
               style={{
                 width: '32px',
