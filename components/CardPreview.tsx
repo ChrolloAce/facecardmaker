@@ -52,23 +52,26 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
         <div
           ref={ref}
           style={{
-            padding: '100px 80px',
+            padding: '120px',
             backgroundColor: 'transparent',
-            minHeight: '600px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minWidth: '640px',
+            minHeight: '640px',
           }}
         >
         {/* Card Container */}
         <div
           style={{
             position: 'relative',
-            width: '480px',
-            maxWidth: '100%',
+            width: '420px',
             margin: '0 auto',
             backgroundColor: '#0D0D0D',
-            borderRadius: '24px',
+            borderRadius: '20px',
             paddingTop: '48px',
             overflow: 'visible',
-            boxShadow: '0 0 40px rgba(0, 255, 132, 0.4), 0 0 80px rgba(0, 255, 132, 0.2), 0 8px 32px rgba(0, 0, 0, 0.8)',
+            boxShadow: '0 0 50px rgba(0, 255, 132, 0.5), 0 0 100px rgba(0, 255, 132, 0.25), 0 10px 40px rgba(0, 0, 0, 0.9)',
           }}
         >
           {/* Profile Image - Overlapping Top Edge */}
@@ -121,20 +124,20 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
           </div>
           
           {/* Card Body */}
-          <div style={{ padding: '32px 48px' }}>
+          <div style={{ padding: '28px 36px' }}>
             {/* Two Column Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '36px' }}>
               {/* Left Column */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {leftColumn.map((stat) => {
                   const colors = getProgressColor(stat.value)
                   return (
-                    <div key={stat.id} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <div key={stat.id} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                       {/* Label */}
                       <div 
                         style={{ 
                           color: '#B3B3B3',
-                          fontSize: '14px',
+                          fontSize: '13px',
                           fontWeight: '500',
                           letterSpacing: '0.025em',
                         }}
@@ -146,7 +149,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                       <div 
                         style={{ 
                           color: '#FFFFFF',
-                          fontSize: '36px',
+                          fontSize: '32px',
                           fontWeight: 'bold',
                           letterSpacing: '-0.025em',
                           lineHeight: '1',
@@ -180,16 +183,16 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
               </div>
               
               {/* Right Column */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {rightColumn.map((stat) => {
                   const colors = getProgressColor(stat.value)
                   return (
-                    <div key={stat.id} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <div key={stat.id} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                       {/* Label */}
                       <div 
                         style={{ 
                           color: '#B3B3B3',
-                          fontSize: '14px',
+                          fontSize: '13px',
                           fontWeight: '500',
                           letterSpacing: '0.025em',
                         }}
@@ -201,7 +204,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                       <div 
                         style={{ 
                           color: '#FFFFFF',
-                          fontSize: '36px',
+                          fontSize: '32px',
                           fontWeight: 'bold',
                           letterSpacing: '-0.025em',
                           lineHeight: '1',
@@ -242,9 +245,9 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              paddingBottom: '24px',
-              paddingTop: '16px',
-              gap: '8px',
+              paddingBottom: '20px',
+              paddingTop: '14px',
+              gap: '6px',
             }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -253,8 +256,8 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
               alt="Logo"
               loading="eager"
               style={{
-                width: '32px',
-                height: '32px',
+                width: '28px',
+                height: '28px',
                 borderRadius: '4px',
                 objectFit: 'cover',
                 display: 'block',
@@ -263,7 +266,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
             <p 
               style={{ 
                 color: '#FFFFFF',
-                fontSize: '16px',
+                fontSize: '15px',
                 fontWeight: '600',
                 margin: '0',
               }}
