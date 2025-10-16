@@ -52,8 +52,9 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
         <div
           ref={ref}
           style={{
-            padding: '80px 60px',
+            padding: '100px 80px',
             backgroundColor: 'transparent',
+            minHeight: '600px',
           }}
         >
         {/* Card Container */}
@@ -67,7 +68,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
             borderRadius: '24px',
             paddingTop: '48px',
             overflow: 'visible',
-            boxShadow: '0 0 60px rgba(0, 255, 132, 0.3), 0 0 100px rgba(0, 255, 132, 0.15), 0 8px 32px rgba(0, 0, 0, 0.8)',
+            boxShadow: '0 0 40px rgba(0, 255, 132, 0.4), 0 0 80px rgba(0, 255, 132, 0.2), 0 8px 32px rgba(0, 0, 0, 0.8)',
           }}
         >
           {/* Profile Image - Overlapping Top Edge */}

@@ -35,28 +35,62 @@ async function waitForImagesToLoad(element: HTMLElement): Promise<void> {
 }
 
 /**
- * Export a single card as PNG
+ * Export a single card as PNG with multiple retry attempts
  */
 export async function exportCardAsPNG(
   element: HTMLElement,
   filename: string = 'facecard.png'
 ): Promise<void> {
   try {
+    console.log('Starting export process...')
+    
     // Wait for images to load
     await waitForImagesToLoad(element)
+    console.log('Images loaded, waiting for render...')
     
-    // Additional delay to ensure all rendering is complete
-    await new Promise(resolve => setTimeout(resolve, 500))
+    // Longer delay to ensure all rendering is complete, especially for data URLs
+    await new Promise(resolve => setTimeout(resolve, 1000))
     
-    // Export with optimized settings for data URLs
-    const dataUrl = await toPng(element, {
-      quality: 1.0,
-      pixelRatio: 2,
-      cacheBust: false, // Don't cache bust for data URLs
-      backgroundColor: 'transparent',
-      skipFonts: false,
-      preferredFontFormat: 'woff2',
-    })
+    console.log('Attempting to capture element...')
+    
+    // Try multiple times with increasing delays if needed
+    let dataUrl: string | null = null
+    const maxAttempts = 3
+    
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        console.log(`Export attempt ${attempt}/${maxAttempts}`)
+        
+        dataUrl = await toPng(element, {
+          quality: 1.0,
+          pixelRatio: 3,
+          cacheBust: false,
+          backgroundColor: 'transparent',
+          skipFonts: false,
+          canvasWidth: 720 * 3,
+          canvasHeight: 900 * 3,
+          style: {
+            margin: '0',
+            padding: '80px 60px',
+          },
+        })
+        
+        // If we got here, it worked
+        console.log('Export successful!')
+        break
+      } catch (err) {
+        console.warn(`Attempt ${attempt} failed:`, err)
+        if (attempt < maxAttempts) {
+          await new Promise(resolve => setTimeout(resolve, 500))
+        } else {
+          throw err
+        }
+      }
+    }
+    
+    if (!dataUrl) {
+      throw new Error('Failed to generate image after multiple attempts')
+    }
     
     downloadDataUrl(dataUrl, filename)
   } catch (error) {
