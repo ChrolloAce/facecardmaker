@@ -61,20 +61,17 @@ export async function exportCardAsPNG(
       try {
         console.log(`Export attempt ${attempt}/${maxAttempts}`)
         
-        // Create a 1:1 square canvas - 1080x1080 for Instagram/social media
         dataUrl = await toPng(element, {
           quality: 1.0,
-          pixelRatio: 2,
+          pixelRatio: 3,
           cacheBust: false,
-          backgroundColor: '#000000', // Black background for square format
+          backgroundColor: 'transparent',
           skipFonts: false,
-          width: 1080,
-          height: 1080,
+          canvasWidth: 720 * 3,
+          canvasHeight: 900 * 3,
           style: {
             margin: '0',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            padding: '60px 40px',
           },
         })
         
