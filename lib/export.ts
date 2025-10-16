@@ -1,100 +1,95 @@
 import { toPng, toSvg } from 'html-to-image'
 
 /**
- * Wait for all images in element to load completely
+ * Preload and decode all images in the element
  */
-async function waitForImagesToLoad(element: HTMLElement): Promise<void> {
+async function preloadAndDecodeImages(element: HTMLElement): Promise<void> {
   const images = element.querySelectorAll('img')
-  const promises = Array.from(images).map((img) => {
-    // If image is already loaded, return immediately
-    if (img.complete && img.naturalHeight !== 0) {
-      return Promise.resolve()
+  console.log(`Found ${images.length} images to preload`)
+  
+  const promises = Array.from(images).map(async (img, index) => {
+    try {
+      // If image is complete, ensure it's decoded
+      if (img.complete && img.naturalHeight !== 0) {
+        console.log(`Image ${index} already loaded, decoding...`)
+        if ('decode' in img) {
+          await img.decode()
+        }
+        return
+      }
+      
+      // Wait for image to load
+      console.log(`Image ${index} loading...`, img.src.substring(0, 60))
+      await new Promise<void>((resolve, reject) => {
+        const timeout = setTimeout(() => {
+          console.warn(`Image ${index} load timeout`)
+          resolve()
+        }, 5000)
+        
+        img.onload = async () => {
+          clearTimeout(timeout)
+          console.log(`Image ${index} loaded, decoding...`)
+          try {
+            if ('decode' in img) {
+              await img.decode()
+            }
+            resolve()
+          } catch (err) {
+            console.warn(`Image ${index} decode error:`, err)
+            resolve()
+          }
+        }
+        
+        img.onerror = () => {
+          clearTimeout(timeout)
+          console.error(`Image ${index} failed to load`)
+          resolve()
+        }
+      })
+    } catch (err) {
+      console.error(`Error processing image ${index}:`, err)
     }
-    
-    // Otherwise wait for it to load
-    return new Promise<void>((resolve) => {
-      const timeout = setTimeout(() => {
-        console.warn('Image load timeout:', img.src.substring(0, 50))
-        resolve()
-      }, 3000)
-      
-      img.onload = () => {
-        clearTimeout(timeout)
-        resolve()
-      }
-      
-      img.onerror = () => {
-        clearTimeout(timeout)
-        console.error('Image load error:', img.src.substring(0, 50))
-        resolve()
-      }
-    })
   })
   
   await Promise.all(promises)
+  console.log('All images preloaded and decoded')
 }
 
 /**
- * Export a single card as PNG with multiple retry attempts
+ * Export a single card as PNG with robust image handling
  */
 export async function exportCardAsPNG(
   element: HTMLElement,
   filename: string = 'facecard.png'
 ): Promise<void> {
   try {
-    console.log('Starting export process...')
+    console.log('=== Starting Export Process ===')
     
-    // Wait for images to load
-    await waitForImagesToLoad(element)
-    console.log('Images loaded, waiting for render...')
+    // Preload and decode all images
+    await preloadAndDecodeImages(element)
     
-    // Longer delay to ensure all rendering is complete, especially for data URLs
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    // Extra delay for browser painting
+    console.log('Waiting for final render...')
+    await new Promise(resolve => setTimeout(resolve, 800))
     
-    console.log('Attempting to capture element...')
+    console.log('Capturing element to PNG...')
     
-    // Try multiple times with increasing delays if needed
-    let dataUrl: string | null = null
-    const maxAttempts = 3
+    // Export with simplified options that work better with data URLs
+    const dataUrl = await toPng(element, {
+      quality: 1.0,
+      pixelRatio: 2,
+      cacheBust: false, // Critical: don't cache bust data URLs
+      backgroundColor: 'transparent',
+      skipFonts: false,
+    })
     
-    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-      try {
-        console.log(`Export attempt ${attempt}/${maxAttempts}`)
-        
-        dataUrl = await toPng(element, {
-          quality: 1.0,
-          pixelRatio: 3,
-          cacheBust: false,
-          backgroundColor: 'transparent',
-          skipFonts: false,
-          canvasWidth: 720 * 3,
-          canvasHeight: 900 * 3,
-          style: {
-            margin: '0',
-            padding: '60px 40px',
-          },
-        })
-        
-        // If we got here, it worked
-        console.log('Export successful!')
-        break
-      } catch (err) {
-        console.warn(`Attempt ${attempt} failed:`, err)
-        if (attempt < maxAttempts) {
-          await new Promise(resolve => setTimeout(resolve, 500))
-        } else {
-          throw err
-        }
-      }
-    }
-    
-    if (!dataUrl) {
-      throw new Error('Failed to generate image after multiple attempts')
-    }
-    
+    console.log('Export successful! Downloading...')
     downloadDataUrl(dataUrl, filename)
+    console.log('=== Export Complete ===')
   } catch (error) {
-    console.error('Failed to export PNG:', error)
+    console.error('=== Export Failed ===')
+    console.error('Error details:', error)
+    alert('Export failed. Please check console for details.')
     throw error
   }
 }
