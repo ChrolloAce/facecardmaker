@@ -83,8 +83,10 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
             {state.avatarUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
+                key={state.avatarUrl}
                 src={state.avatarUrl}
                 alt="Profile"
+                loading="eager"
                 style={{
                   width: '96px',
                   height: '96px',
@@ -247,7 +249,8 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src="/logo.jpg" 
-              alt="Logo" 
+              alt="Logo"
+              loading="eager"
               style={{
                 width: '32px',
                 height: '32px',

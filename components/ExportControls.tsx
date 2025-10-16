@@ -15,7 +15,22 @@ interface ExportControlsProps {
 export function ExportControls({ cardRef }: ExportControlsProps) {
   const handleExport = async () => {
     try {
-      if (!cardRef.current) return
+      if (!cardRef.current) {
+        console.error('Card ref not found')
+        return
+      }
+      
+      // Debug: Check what images are in the element
+      const images = cardRef.current.querySelectorAll('img')
+      console.log('Found images to export:', images.length)
+      images.forEach((img, i) => {
+        console.log(`Image ${i}:`, {
+          complete: img.complete,
+          naturalHeight: img.naturalHeight,
+          src: img.src.substring(0, 50) + '...'
+        })
+      })
+      
       await exportCardAsPNG(cardRef.current, 'facecard.png')
     } catch (error) {
       console.error('Export failed:', error)

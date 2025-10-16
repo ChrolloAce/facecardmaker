@@ -1,19 +1,36 @@
 import { toPng, toSvg } from 'html-to-image'
 
 /**
- * Wait for all images in element to load
+ * Wait for all images in element to load completely
  */
 async function waitForImagesToLoad(element: HTMLElement): Promise<void> {
   const images = element.querySelectorAll('img')
   const promises = Array.from(images).map((img) => {
-    if (img.complete && img.naturalHeight !== 0) return Promise.resolve()
+    // If image is already loaded, return immediately
+    if (img.complete && img.naturalHeight !== 0) {
+      return Promise.resolve()
+    }
+    
+    // Otherwise wait for it to load
     return new Promise<void>((resolve) => {
-      img.onload = () => resolve()
-      img.onerror = () => resolve() // Resolve anyway to not block
-      // Timeout fallback
-      setTimeout(() => resolve(), 2000)
+      const timeout = setTimeout(() => {
+        console.warn('Image load timeout:', img.src.substring(0, 50))
+        resolve()
+      }, 3000)
+      
+      img.onload = () => {
+        clearTimeout(timeout)
+        resolve()
+      }
+      
+      img.onerror = () => {
+        clearTimeout(timeout)
+        console.error('Image load error:', img.src.substring(0, 50))
+        resolve()
+      }
     })
   })
+  
   await Promise.all(promises)
 }
 
@@ -28,21 +45,17 @@ export async function exportCardAsPNG(
     // Wait for images to load
     await waitForImagesToLoad(element)
     
-    // Small delay to ensure rendering is complete
-    await new Promise(resolve => setTimeout(resolve, 200))
+    // Additional delay to ensure all rendering is complete
+    await new Promise(resolve => setTimeout(resolve, 500))
     
-    // First attempt with higher quality settings
+    // Export with optimized settings for data URLs
     const dataUrl = await toPng(element, {
       quality: 1.0,
       pixelRatio: 2,
-      cacheBust: true,
+      cacheBust: false, // Don't cache bust for data URLs
       backgroundColor: 'transparent',
       skipFonts: false,
-      includeQueryParams: true,
-      filter: (node: HTMLElement) => {
-        // Include all nodes
-        return true
-      },
+      preferredFontFormat: 'woff2',
     })
     
     downloadDataUrl(dataUrl, filename)
