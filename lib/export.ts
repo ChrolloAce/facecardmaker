@@ -6,12 +6,12 @@ import { toPng, toSvg } from 'html-to-image'
 async function waitForImagesToLoad(element: HTMLElement): Promise<void> {
   const images = element.querySelectorAll('img')
   const promises = Array.from(images).map((img) => {
-    if (img.complete) return Promise.resolve()
-    return new Promise((resolve, reject) => {
-      img.onload = resolve
-      img.onerror = reject
-      // Set a timeout in case image fails to load
-      setTimeout(resolve, 3000)
+    if (img.complete && img.naturalHeight !== 0) return Promise.resolve()
+    return new Promise<void>((resolve) => {
+      img.onload = () => resolve()
+      img.onerror = () => resolve() // Resolve anyway to not block
+      // Timeout fallback
+      setTimeout(() => resolve(), 2000)
     })
   })
   await Promise.all(promises)
@@ -28,16 +28,20 @@ export async function exportCardAsPNG(
     // Wait for images to load
     await waitForImagesToLoad(element)
     
-    // Add a delay to ensure everything is rendered
-    await new Promise(resolve => setTimeout(resolve, 300))
+    // Small delay to ensure rendering is complete
+    await new Promise(resolve => setTimeout(resolve, 200))
     
+    // First attempt with higher quality settings
     const dataUrl = await toPng(element, {
-      quality: 1,
+      quality: 1.0,
       pixelRatio: 2,
       cacheBust: true,
       backgroundColor: 'transparent',
-      style: {
-        transform: 'scale(1)',
+      skipFonts: false,
+      includeQueryParams: true,
+      filter: (node: HTMLElement) => {
+        // Include all nodes
+        return true
       },
     })
     

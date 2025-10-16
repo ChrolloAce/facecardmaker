@@ -41,34 +41,43 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
     
     return (
       <div
-        ref={ref}
         className={`relative mx-auto ${className}`}
         style={{
           width: '600px',
           maxWidth: '100%',
           transform: size === 'thumbnail' ? `scale(${scale})` : undefined,
           transformOrigin: 'top center',
-          padding: '80px 60px',
         }}
       >
+        <div
+          ref={ref}
+          style={{
+            padding: '80px 60px',
+            backgroundColor: 'transparent',
+          }}
+        >
         {/* Card Container */}
         <div
-          className="relative rounded-[24px] shadow-2xl overflow-visible pt-12"
           style={{
+            position: 'relative',
             width: '480px',
             maxWidth: '100%',
             margin: '0 auto',
             backgroundColor: '#0D0D0D',
+            borderRadius: '24px',
+            paddingTop: '48px',
+            overflow: 'visible',
             boxShadow: '0 0 60px rgba(0, 255, 132, 0.3), 0 0 100px rgba(0, 255, 132, 0.15), 0 8px 32px rgba(0, 0, 0, 0.8)',
           }}
         >
           {/* Profile Image - Overlapping Top Edge */}
           <div 
-            className="absolute z-10"
             style={{
+              position: 'absolute',
               top: '-40px',
               left: '50%',
               transform: 'translateX(-50%)',
+              zIndex: 10,
             }}
           >
             {state.avatarUrl ? (
@@ -76,21 +85,29 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
               <img
                 src={state.avatarUrl}
                 alt="Profile"
-                className="rounded-full object-cover"
                 style={{
                   width: '96px',
                   height: '96px',
+                  borderRadius: '50%',
+                  objectFit: 'cover',
                   border: '3px solid #FFFFFF',
                   boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
+                  display: 'block',
                 }}
               />
             ) : (
               <div 
-                className="rounded-full flex items-center justify-center text-white font-bold bg-gradient-to-br from-gray-600 to-gray-800"
                 style={{
                   width: '96px',
                   height: '96px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   fontSize: '32px',
+                  fontWeight: 'bold',
+                  color: '#FFFFFF',
+                  background: 'linear-gradient(to bottom right, #4B5563, #1F2937)',
                   border: '3px solid #FFFFFF',
                   boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
                 }}
@@ -103,7 +120,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
           {/* Card Body */}
           <div style={{ padding: '32px 48px' }}>
             {/* Two Column Grid */}
-            <div className="grid grid-cols-2" style={{ gap: '48px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px' }}>
               {/* Left Column */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
                 {leftColumn.map((stat) => {
@@ -112,10 +129,11 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                     <div key={stat.id} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                       {/* Label */}
                       <div 
-                        className="font-medium tracking-wide"
                         style={{ 
                           color: '#B3B3B3',
                           fontSize: '14px',
+                          fontWeight: '500',
+                          letterSpacing: '0.025em',
                         }}
                       >
                         {stat.label}
@@ -123,10 +141,12 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                       
                       {/* Value */}
                       <div 
-                        className="font-bold tracking-tight"
                         style={{ 
                           color: '#FFFFFF',
                           fontSize: '36px',
+                          fontWeight: 'bold',
+                          letterSpacing: '-0.025em',
+                          lineHeight: '1',
                         }}
                       >
                         {stat.value}
@@ -134,18 +154,20 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                       
                       {/* Progress Bar */}
                       <div 
-                        className="rounded-full overflow-hidden"
                         style={{ 
                           backgroundColor: '#1E1E1E',
                           height: '6px',
+                          borderRadius: '9999px',
+                          overflow: 'hidden',
                         }}
                       >
                         <div
-                          className="h-full rounded-full"
                           style={{
+                            height: '100%',
                             width: `${stat.value}%`,
                             backgroundColor: colors.bg,
                             boxShadow: colors.shadow,
+                            borderRadius: '9999px',
                           }}
                         />
                       </div>
@@ -162,10 +184,11 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                     <div key={stat.id} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                       {/* Label */}
                       <div 
-                        className="font-medium tracking-wide"
                         style={{ 
                           color: '#B3B3B3',
                           fontSize: '14px',
+                          fontWeight: '500',
+                          letterSpacing: '0.025em',
                         }}
                       >
                         {stat.label}
@@ -173,10 +196,12 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                       
                       {/* Value */}
                       <div 
-                        className="font-bold tracking-tight"
                         style={{ 
                           color: '#FFFFFF',
                           fontSize: '36px',
+                          fontWeight: 'bold',
+                          letterSpacing: '-0.025em',
+                          lineHeight: '1',
                         }}
                       >
                         {stat.value}
@@ -184,18 +209,20 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
                       
                       {/* Progress Bar */}
                       <div 
-                        className="rounded-full overflow-hidden"
                         style={{ 
                           backgroundColor: '#1E1E1E',
                           height: '6px',
+                          borderRadius: '9999px',
+                          overflow: 'hidden',
                         }}
                       >
                         <div
-                          className="h-full rounded-full"
                           style={{
+                            height: '100%',
                             width: `${stat.value}%`,
                             backgroundColor: colors.bg,
                             boxShadow: colors.shadow,
+                            borderRadius: '9999px',
                           }}
                         />
                       </div>
@@ -208,8 +235,10 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
           
           {/* Footer Brand */}
           <div 
-            className="flex items-center justify-center"
             style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               paddingBottom: '24px',
               paddingTop: '16px',
               gap: '8px',
@@ -219,22 +248,26 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
             <img 
               src="/logo.jpg" 
               alt="Logo" 
-              className="rounded-sm object-cover"
               style={{
                 width: '32px',
                 height: '32px',
+                borderRadius: '4px',
+                objectFit: 'cover',
+                display: 'block',
               }}
             />
             <p 
-              className="font-semibold"
               style={{ 
                 color: '#FFFFFF',
                 fontSize: '16px',
+                fontWeight: '600',
+                margin: '0',
               }}
             >
               {state.brandText}
             </p>
           </div>
+        </div>
         </div>
       </div>
     )
