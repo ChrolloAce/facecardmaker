@@ -68,6 +68,7 @@ export const CardPreview = React.forwardRef<HTMLDivElement, CardPreviewProps>(
             borderRadius: '24px',
             paddingTop: '48px',
             overflow: 'visible',
+            border: '2px solid #00FF84',
             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.9), 0 4px 16px rgba(0, 0, 0, 0.7)',
           }}
         >
